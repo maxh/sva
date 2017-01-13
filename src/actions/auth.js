@@ -40,25 +40,13 @@ const signInGoogleUser = () => {
 
 const signInScoutUser = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: types.SCOUT_USER_REQUEST
-    });
-    return getCurrentUserAsync().then(scoutUser => {
-      dispatch({
-        type: types.SCOUT_USER_SUCCESS,
-        value: scoutUser
-      });
-    }).catch(error => {
-      dispatch({
-        type: types.SCOUT_USER_FAILURE,
-        error: error
-      });
-    })
-  }
+    // TODO
+  };
 };
 
 
 export const signIn = () => {
+  console.log('signing in')
   return (dispatch, getState) => {
     return dispatch(signInGoogleUser()).then(() => {
       dispatch(signInScoutUser());

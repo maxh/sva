@@ -6,30 +6,13 @@ import {
   Text,
   ListView
 } from 'react-native';
-import { ScrollableTabView } from 'react-native-scrollable-tab-view';
+import { connect } from 'react-redux';
 
 
-class Lessons extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    };
-  }
-
+class LessonsScreen extends Component {
   render() {
-    return (
-      <ScrollableTabView>
-        <ReactPage tabLabel="React" />
-        <FlowPage tabLabel="Flow" />
-        <JestPage tabLabel="Jest" />
-      </ScrollableTabView>
-    );
-  }
-
-  render1() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const datasource = ds.cloneWithRows(this.props.state.lessons.current)
+    const datasource = ds.cloneWithRows(this.props.lessons.current)
     return (
       <ListView
         dataSource={datasource}
@@ -69,4 +52,10 @@ var styles = StyleSheet.create({
   },
 });
 
-export default Lessons;
+const mapStateToProps = state => ({
+  lessons: state.lessons
+});
+
+const mapDispatchToProps = undefined;
+
+export default connect(mapStateToProps, mapDispatchToProps)(LessonsScreen);

@@ -28,7 +28,7 @@ function googleUser(state = {isLoading: false}, action) {
   }
 }
 
-function scoutUser(state = {isLoading: false}, action) {
+function user(state = {isLoading: false}, action) {
   switch (action.type) {
     case types.SCOUT_USER_REQUEST:
       return {
@@ -55,5 +55,5 @@ function scoutUser(state = {isLoading: false}, action) {
 
 export default combineReducers({
   googleUser,
-  scoutUser
+  user
 });

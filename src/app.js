@@ -12,8 +12,6 @@ import { registerScreens } from './screens';
 
 import { Navigation } from 'react-native-navigation';
 
-import AppContainer from './containers/AppContainer';
-
 
 // Log Redux activity when in dev mode.
 const loggerMiddleware = createLogger(
@@ -28,77 +26,57 @@ const configureStore = () => {
 }
 
 const store = configureStore();
-persistStore(store, {storage: AsyncStorage}, () => {
-  console.log('restored')
-})
-
-const App = () => (
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>
-)
-
-export default App;
-
-//Screen related book keeping.
+persistStore(store, {storage: AsyncStorage}).purge();
 registerScreens(store, Provider);
 
 
-// Notice that this is just a simple class, it's not a React component.
 export default class App {
 
   constructor() {
     // Since react-redux only works on components, we need to subscribe this class manually.
     store.subscribe(this.onStoreUpdate.bind(this));
-    store.dispatch(appActions.appInitialized());
   }
 
   onStoreUpdate() {
-    const { root } = store.getState().app;
-    if (this.currentRoot != root) {
-      this.currentRoot = root;
-      this.startApp(root);
+    // TODO: check for auth.user.
+    const isSignedIn = Boolean(store.getState().auth.googleUser.current);
+    var rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
+    if (this.currentRootScreen != rootScreen) {
+      this.currentRootScreen = rootScreen;
+      this.startApp(rootScreen);
     }
   }
 
-  startApp(root) {
-    switch (root) {
+  startApp(rootScreen) {
+    switch (rootScreen) {
       case 'sign-in':
-        if (Platform.OS === 'ios') {
-          Navigation.startSingleScreenApp({
-           screen: {
-             screen: 'example.LoginScreen',
-             title: 'Login',
-             navigatorStyle: {}
-           },
-           passProps: {}
-          });
-        }
+        Navigation.startSingleScreenApp({
+         screen: {
+           screen: 'SignInScreen',
+           navigatorStyle: {}
+         },
+         passProps: {}
+        });
         return;
       case 'after-sign-in':
         Navigation.startTabBasedApp({
           tabs: [
             {
-              label: 'One',
-              screen: 'example.FirstTabScreen',
-              icon: require('../img/one.png'),
-              selectedIcon: require('../img/one_selected.png'),
-              title: 'Screen One',
-              overrideBackPress: true,
+              label: 'Ask',
+              screen: 'AskScreen',
+              title: 'Ask',
               navigatorStyle: {}
             },
             {
-              label: 'Two',
-              screen: 'example.SecondTabScreen',
-              icon: require('../img/two.png'),
-              selectedIcon: require('../img/two_selected.png'),
-              title: 'Screen Two',
+              label: 'Train',
+              screen: 'LessonsScreen',
+              title: 'Train',
               navigatorStyle: {}
             }
           ],
           passProps: {},
           animationType: 'slide-down',
-          title: 'Redux Example',
+          title: 'Scout',
           appStyle: {
             bottomTabBadgeTextColor: '#ffffff',
             bottomTabBadgeBackgroundColor: '#ff0000'
