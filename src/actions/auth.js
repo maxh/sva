@@ -18,7 +18,7 @@ const getCurrentUserAsync = () => {
   return authLibPromise.then(() => GoogleSignin.currentUserAsync())
 }
 
-export const signInGoogleUser = () => {
+const signInGoogleUser = () => {
   return (dispatch, getState) => {
     dispatch({
       type: types.GOOGLE_USER_REQUEST
@@ -36,3 +36,32 @@ export const signInGoogleUser = () => {
     })
   }
 };
+
+
+const signInScoutUser = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.SCOUT_USER_REQUEST
+    });
+    return getCurrentUserAsync().then(scoutUser => {
+      dispatch({
+        type: types.SCOUT_USER_SUCCESS,
+        value: scoutUser
+      });
+    }).catch(error => {
+      dispatch({
+        type: types.SCOUT_USER_FAILURE,
+        error: error
+      });
+    })
+  }
+};
+
+
+export const signIn = () => {
+  return (dispatch, getState) => {
+    return dispatch(signInGoogleUser()).then(() => {
+      dispatch(signInScoutUser());
+    });
+  }
+}

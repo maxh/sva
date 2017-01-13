@@ -1,10 +1,7 @@
-const API_ROOT = '/api';
-
-const AUTH_TOKEN_HEADER = 'X-IdeaReminder-Auth-Token-ID';
-const LINK_CODE_HEADER = 'X-IdeaReminder-LinkCode';
+const API_ROOT = 'http://localhost:4000';
 
 const makeApiCall = (options) => {
-  const {endpoint, content, method, tokenId, linkCode} = options;
+  const {endpoint, content, method, } = options;
 
   const path = API_ROOT + endpoint;
   const fetchOptions = {
@@ -26,15 +23,16 @@ const makeApiCall = (options) => {
   }
 
   return fetch(path, fetchOptions)
-    .then(response =>
-      response.json().then(json => {
+    .then(response => {
+      const cookie = response.headers.get('set-cookie');
+      let sessionCookie = cookie.indexOf('session=') === 0 ? cookie : null;
+      return response.json().then(json => {
         if (!response.ok) {
           return Promise.reject(json)
         }
-        const camelizedJson = camelizeKeys(json)
-        return Object.assign({}, camelizedJson);
-      })
-    )
+        return Object.assign({}, json, { _sessionCookie: sessionCookie });
+      });
+    });
 }
 
 export const CALL_API = Symbol('Call API');
@@ -44,6 +42,7 @@ export const CALL_API = Symbol('Call API');
 export default store => next => action => {
   const callAPI = action[CALL_API]
   if (typeof callAPI === 'undefined') {
+    // Not an API call action, skip.
     return next(action)
   }
 
@@ -69,13 +68,6 @@ export default store => next => action => {
 
   const state = store.getState();
 
-  // Look for auth values, if any.
-  let linkCode = '';
-  try {
-    linkCode = state.routing.locationBeforeTransitions.query.linkCode;
-  } catch (e) {
-    linkCode = null;
-  }
   const currentGoogleUser = state.googleUser.current;
   const tokenId = currentGoogleUser && currentGoogleUser.tokenId;
 

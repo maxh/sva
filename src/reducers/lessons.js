@@ -3,24 +3,24 @@ import { combineReducers } from 'redux';
 import * as types from '../actions/types';
 
 
-function googleUser(state = {isLoading: false}, action) {
+function lessons(state = {isLoading: false, current: ['1', '2']}, action) {
   switch (action.type) {
-    case types.GOOGLE_USER_REQUEST:
+    case types.LESSONS_REQUEST:
       return {
         isLoading: true,
-        value: state.value,
+        current: state.current,
         error: undefined
       };
-    case types.GOOGLE_USER_SUCCESS:
+    case types.LESSONS_SUCCESS:
       return {
         isLoading: false,
-        value: action.value,
+        current: action.value,
         error: undefined
       };
-    case types.GOOGLE_USER_FAILURE:
+    case types.LESSONS_FAILURE:
       return {
         isLoading: false,
-        value: undefined,
+        current: undefined,
         error: action.error
       };
     default:
@@ -28,6 +28,4 @@ function googleUser(state = {isLoading: false}, action) {
   }
 }
 
-export default combineReducers({
-  googleUser,
-});
+export default lessons;
