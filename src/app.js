@@ -9,37 +9,35 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import reducer from './reducers';
 import api from './middleware/api.js';
 import { registerScreens } from './screens';
+import { initSocket } from './actions/socket'
 
 import { Navigation } from 'react-native-navigation';
-
-
-// Log Redux activity when in dev mode.
-const loggerMiddleware = createLogger(
-    {predicate: (getState, action) => __DEV__});
-
-const configureStore = () => {
-  const enhancers = [
-    applyMiddleware(thunkMiddleware, loggerMiddleware),
-    autoRehydrate(),
-  ];
-  return createStore(reducer, undefined, compose(...enhancers));
-}
-
-const store = configureStore();
-persistStore(store, {storage: AsyncStorage}).purge();
-registerScreens(store, Provider);
 
 
 export default class App {
 
   constructor() {
-    // Since react-redux only works on components, we need to subscribe this class manually.
-    store.subscribe(this.onStoreUpdate.bind(this));
+    const middleware = [thunkMiddleware, api];
+    if (__DEV__) {
+      middleware.push(createLogger())
+    }
+    const enhancers = [
+      applyMiddleware(...middleware),
+      autoRehydrate(),
+    ];
+
+    this.store = createStore(reducer, undefined, compose(...enhancers));
+
+    initSocket(this.store);
+    persistStore(this.store, {storage: AsyncStorage}).purge();
+    registerScreens(this.store, Provider);
+
+    this.store.subscribe(this.onStoreUpdate.bind(this));
   }
 
   onStoreUpdate() {
-    // TODO: check for auth.user.
-    const isSignedIn = Boolean(store.getState().auth.googleUser.current);
+    // TODO: check for auth.user. instead of auth.googleUser.
+    const isSignedIn = Boolean(this.store.getState().auth.googleUser.current);
     var rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
     if (this.currentRootScreen != rootScreen) {
       this.currentRootScreen = rootScreen;

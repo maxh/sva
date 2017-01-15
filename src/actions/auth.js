@@ -1,6 +1,8 @@
 import { GoogleSignin } from 'react-native-google-signin';
+import { CALL_API } from '../middleware/api';
+import settings from '../settings';
 
-import * as types from '../actions/types';
+import * as types from './types';
 
 const INITIAL_SCOPES = [
   'https://www.googleapis.com/auth/userinfo.profile',
@@ -13,9 +15,10 @@ const authLibPromise = GoogleSignin.configure({
   webClientId: '447160699625-cuvgvmtcfpl1c1jehq9dntcd1sgomi3g.apps.googleusercontent.com',
   offlineAccess: true
 });
+GoogleSignin.signOut()
 
 const getCurrentUserAsync = () => {
-  return authLibPromise.then(() => GoogleSignin.currentUserAsync())
+  return authLibPromise.then(() => GoogleSignin.signIn())
 }
 
 const signInGoogleUser = () => {
@@ -26,7 +29,7 @@ const signInGoogleUser = () => {
     return getCurrentUserAsync().then(googleUser => {
       dispatch({
         type: types.GOOGLE_USER_SUCCESS,
-        value: googleUser
+        current: googleUser
       });
     }).catch(error => {
       dispatch({
@@ -38,10 +41,34 @@ const signInGoogleUser = () => {
 };
 
 
-const signInScoutUser = () => {
+const signInScoutUser = googleUser => {
   return (dispatch, getState) => {
-    // TODO
-  };
+    dispatch({type: types.USER_REQUEST});
+    const path = settings.urls.mainServer + '/auth/devicetoken';
+    // TODO(max): Use real device name, let scopes be different for upgrading.
+    const params = {
+      googleUser: googleUser,
+      deviceName: 'Max Simulator Foo Bar',
+      scopes: INITIAL_SCOPES
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'same-origin'
+    };
+    return fetch(path, options).then(response => {
+      if (!response.ok) throw Error(resonse.statusText);
+      return response.json().then(json => {
+        return dispatch({
+          type: types.USER_SUCCESS,
+          deviceToken: json.deviceToken
+        });
+      });
+    }).catch(error => {
+      return dispatch({type: types.USER_FAILURE, error: error});
+    });
+  }
 };
 
 
@@ -49,7 +76,15 @@ export const signIn = () => {
   console.log('signing in')
   return (dispatch, getState) => {
     return dispatch(signInGoogleUser()).then(() => {
-      dispatch(signInScoutUser());
+      const currentGoogleUser = getState().auth.googleUser.current;
+      if (currentGoogleUser) {
+        return dispatch(signInScoutUser(currentGoogleUser));
+      } else {
+        return dispatch({
+          type: types.GOOGLE_USER_FAILURE,
+          error: 'Expected a Google user but there was none.'
+        });
+      }
     });
   }
 }

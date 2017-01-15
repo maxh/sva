@@ -1,7 +1,10 @@
-const API_ROOT = 'http://localhost:4000';
+import settings from '../settings';
+
+const API_ROOT = settings.urls.mainServer;
+
 
 const makeApiCall = (options) => {
-  const {endpoint, content, method, } = options;
+  const {endpoint, content, method, cookie} = options;
 
   const path = API_ROOT + endpoint;
   const fetchOptions = {
@@ -9,28 +12,22 @@ const makeApiCall = (options) => {
     headers: new Headers()
   };
 
-  if (tokenId) {
-    fetchOptions.headers.set(AUTH_TOKEN_HEADER, tokenId);
-  }
-
-  if (linkCode) {
-    fetchOptions.headers.set(LINK_CODE_HEADER, linkCode);
-  }
-
   if (content) {
     fetchOptions.body = JSON.stringify(content);
     fetchOptions.headers.set('Content-Type', 'application/json');
   }
 
+  if (cookie) {
+    fetchOptions.headers.set('cookie', cookie);
+  }
+
   return fetch(path, fetchOptions)
     .then(response => {
-      const cookie = response.headers.get('set-cookie');
-      let sessionCookie = cookie.indexOf('session=') === 0 ? cookie : null;
       return response.json().then(json => {
         if (!response.ok) {
           return Promise.reject(json)
         }
-        return Object.assign({}, json, { _sessionCookie: sessionCookie });
+        return Object.assign({}, json);
       });
     });
 }
@@ -46,7 +43,7 @@ export default store => next => action => {
     return next(action)
   }
 
-  const { endpoint, content, method, page, types } = callAPI
+  const { endpoint, content, method, page, types } = callAPI;
 
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.')
@@ -68,12 +65,14 @@ export default store => next => action => {
 
   const state = store.getState();
 
-  const currentGoogleUser = state.googleUser.current;
-  const tokenId = currentGoogleUser && currentGoogleUser.tokenId;
+  const cookie = state.auth.user.cookie;
+  if (!cookie) {
+    console.error('Expected a cookie!')
+  }
 
   next(actionWith({ type: requestType, endpoint: endpoint }))
 
-  return makeApiCall({endpoint, content, method, tokenId, linkCode}).then(
+  return makeApiCall({endpoint, content, method, cookie}).then(
     response => next(actionWith({
       response,
       type: successType

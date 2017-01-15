@@ -41,3 +41,7 @@ https://github.com/devfd/react-native-google-signin
 Best practices for syncing our auth with our custom backend:
 
 https://developers.google.com/identity/sign-in/ios/backend-auth
+
+# Submitting to app store
+
+https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md#app-store-submission

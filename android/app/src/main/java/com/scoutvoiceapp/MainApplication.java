@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.oney.WebRTCModule.WebRTCModulePackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.reactnativenavigation.RnnPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new WebRTCModulePackage(),
+            new ReactNativeAudioPackage(),
             new RnnPackage(),
             new VectorIconsPackage(),
             new RNGoogleSigninPackage()

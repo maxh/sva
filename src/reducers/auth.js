@@ -14,7 +14,7 @@ function googleUser(state = {isLoading: false}, action) {
     case types.GOOGLE_USER_SUCCESS:
       return {
         isLoading: false,
-        current: action.value,
+        current: action.current,
         error: undefined
       };
     case types.GOOGLE_USER_FAILURE:
@@ -30,22 +30,22 @@ function googleUser(state = {isLoading: false}, action) {
 
 function user(state = {isLoading: false}, action) {
   switch (action.type) {
-    case types.SCOUT_USER_REQUEST:
+    case types.USER_REQUEST:
       return {
         isLoading: true,
-        current: state.current,
+        deviceToken: state.deviceToken,
         error: undefined
       };
-    case types.SCOUT_USER_SUCCESS:
+    case types.USER_SUCCESS:
       return {
         isLoading: false,
-        current: action.value,
+        deviceToken: action.deviceToken,
         error: undefined
       };
-    case types.SCOUT_USER_FAILURE:
+    case types.USER_FAILURE:
       return {
         isLoading: false,
-        current: undefined,
+        deviceToken: undefined,
         error: action.error
       };
     default:
