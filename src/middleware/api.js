@@ -4,7 +4,7 @@ const API_ROOT = settings.urls.mainServer;
 
 
 const makeApiCall = (options) => {
-  const {endpoint, content, method, cookie} = options;
+  const {endpoint, content, method, deviceToken} = options;
 
   const path = API_ROOT + endpoint;
   const fetchOptions = {
@@ -17,8 +17,9 @@ const makeApiCall = (options) => {
     fetchOptions.headers.set('Content-Type', 'application/json');
   }
 
-  if (cookie) {
-    fetchOptions.headers.set('cookie', cookie);
+  if (deviceToken) {
+    fetchOptions.headers.set(
+        'Authorization', 'Scout DeviceToken ' + deviceToken);
   }
 
   return fetch(path, fetchOptions)
@@ -43,7 +44,15 @@ export default store => next => action => {
     return next(action)
   }
 
-  const { endpoint, content, method, page, types } = callAPI;
+  const { content, method, page, types } = callAPI;
+
+  let { endpoint } = callAPI;
+  if (!endpoint.startsWith('/')) {
+    endpoint = '/' + endpoint;
+  }
+  if (!endpoint.startsWith('/api')) {
+    endpoint = '/api' + endpoint;
+  }
 
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.')
@@ -65,14 +74,18 @@ export default store => next => action => {
 
   const state = store.getState();
 
-  const cookie = state.auth.user.cookie;
-  if (!cookie) {
-    console.error('Expected a cookie!')
+  const deviceToken = state.auth.user.deviceToken;
+  if (!deviceToken) {
+    console.error('Expected a deviceToken!')
   }
 
-  next(actionWith({ type: requestType, endpoint: endpoint }))
+  next(actionWith({
+    type: requestType,
+    endpoint: endpoint,
+    content: content
+  }));
 
-  return makeApiCall({endpoint, content, method, cookie}).then(
+  return makeApiCall({endpoint, content, method, deviceToken}).then(
     response => next(actionWith({
       response,
       type: successType

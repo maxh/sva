@@ -73,7 +73,6 @@ const signInScoutUser = googleUser => {
 
 
 export const signIn = () => {
-  console.log('signing in')
   return (dispatch, getState) => {
     return dispatch(signInGoogleUser()).then(() => {
       const currentGoogleUser = getState().auth.googleUser.current;

@@ -7,12 +7,15 @@ import createLogger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 
 import reducer from './reducers';
-import api from './middleware/api.js';
+import api from './middleware/api';
 import { registerScreens } from './screens';
 import { initSocket } from './actions/socket'
 
 import { Navigation } from 'react-native-navigation';
 
+
+// Change this during development to purge the store upon app refresh.
+const PURGE = false;
 
 export default class App {
 
@@ -29,15 +32,20 @@ export default class App {
     this.store = createStore(reducer, undefined, compose(...enhancers));
 
     initSocket(this.store);
-    persistStore(this.store, {storage: AsyncStorage}).purge();
+
+    // Persist the redux store across app reboots.
+    const persist = persistStore(this.store, {storage: AsyncStorage});
+    if (PURGE) {
+      persist.purge();
+    }
+
     registerScreens(this.store, Provider);
 
     this.store.subscribe(this.onStoreUpdate.bind(this));
   }
 
   onStoreUpdate() {
-    // TODO: check for auth.user. instead of auth.googleUser.
-    const isSignedIn = Boolean(this.store.getState().auth.googleUser.current);
+    const isSignedIn = Boolean(this.store.getState().auth.user.deviceToken);
     var rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
     if (this.currentRootScreen != rootScreen) {
       this.currentRootScreen = rootScreen;

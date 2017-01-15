@@ -57,8 +57,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {
-  signIn: signIn
-};
+const mapDispatchToProps = {signIn};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

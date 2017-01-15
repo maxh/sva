@@ -8,9 +8,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import { addLesson, loadLessons } from '../actions/lessons';
 
 const getLessonParams = lesson => {
-  const fnName = lesson.function;
+  const fnName = lesson.fnName;
   let paramSummary = [];
   if (lesson.params) {
     paramSummary = Object.keys(lesson.params).map((p, i) => {
@@ -22,17 +23,32 @@ const getLessonParams = lesson => {
 
 class LessonsScreen extends Component {
   static navigatorButtons = {
-    rightButtons: [{ // buttons for the right side of the nav bar (optional)
-      title: 'Add new', // if you want a textual button
-      id: 'add-new', // id of the button which will pass to your press event handler
+    rightButtons: [{
+      title: 'Add new',
+      id: 'add-new',
     }],
   };
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this.dataSource = new ListView.DataSource({
       rowHasChanged: (lesson1, lesson2) => lesson1._id !== lesson2._id
     });
+  }
+
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'add-new') {
+        this.props.addLesson({
+          question: 'foo',
+          fnName: 'constantReply',
+          params: {answer: 'bar'}
+        });
+      }
+    } else if (event.id === 'bottomTabSelected') {
+      this.props.loadLessons();
+    }
   }
 
   render() {
@@ -43,6 +59,7 @@ class LessonsScreen extends Component {
     return (
       <View>
         <ListView
+          enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={this._renderRow}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
@@ -102,6 +119,9 @@ const mapStateToProps = state => ({
   lessons: state.lessons
 });
 
-const mapDispatchToProps = undefined;
+const mapDispatchToProps = {
+  loadLessons,
+  addLesson,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LessonsScreen);
