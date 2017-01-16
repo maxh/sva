@@ -45,3 +45,9 @@ https://developers.google.com/identity/sign-in/ios/backend-auth
 # Submitting to app store
 
 https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md#app-store-submission
+
+# TODO
+
+- Log all errors to server for client-side error reporting.
+- TypeScript?
+- Lint?

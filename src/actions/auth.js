@@ -1,7 +1,8 @@
 import { GoogleSignin } from 'react-native-google-signin';
+
 import { CALL_API } from '../middleware/api';
 import settings from '../settings';
-
+import { fetchJson } from '../infra/net';
 import * as types from './types';
 
 
@@ -22,21 +23,23 @@ if (settings.dev.forceGoogleSignOut) {
 }
 
 const getCurrentUserAsync = () => {
-  return authLibPromise.then(() => GoogleSignin.signIn())
+  return authLibPromise.then(() => GoogleSignin.signIn());
 }
 
-const signInGoogleUser = () => {
+const ensureGoogleUser = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: types.GOOGLE_USER_REQUEST
-    });
+    if (getState().auth.googleUser.current) {
+      return Promise.resolve();  // Already signed in.
+    }
+
+    dispatch({type: types.GOOGLE_USER_REQUEST});
     return getCurrentUserAsync().then(googleUser => {
-      dispatch({
+      return dispatch({
         type: types.GOOGLE_USER_SUCCESS,
         current: googleUser
       });
     }).catch(error => {
-      dispatch({
+      return dispatch({
         type: types.GOOGLE_USER_FAILURE,
         error: error
       });
@@ -44,11 +47,19 @@ const signInGoogleUser = () => {
   }
 };
 
-const signInScoutUser = googleUser => {
+const ensureDeviceToken = () => {
   return (dispatch, getState) => {
+    const googleUser = getState().auth.googleUser.current;
+    if (!googleUser) {
+      throw Error('There must be googleUser to get a device token.')
+    }
+    if (getState().auth.deviceToken.current) {
+      return Promise.resolve();  // Already have a device token.
+    }
+
     dispatch({type: types.DEVICE_TOKEN_REQUEST});
     const path = settings.urls.mainServer + '/auth/devicetoken';
-    // TODO(max): Use real device name, let scopes be different for upgrading.
+    // TODO(max): Use real device name.
     const params = {
       googleUser: googleUser,
       deviceName: 'Max Simulator Foo Bar',
@@ -60,41 +71,26 @@ const signInScoutUser = googleUser => {
       headers: {'Content-Type': 'application/json'},
       credentials: 'same-origin'
     };
-    return fetch(path, options).then(response => {
-      if (!response.ok) throw Error(resonse.statusText);
-      return response.json().then(json => {
-        return dispatch({
-          type: types.DEVICE_TOKEN_SUCCESS,
-          deviceToken: json.deviceToken
-        });
+    return fetchJson(path, options).then(result => {
+      return dispatch({
+        type: types.DEVICE_TOKEN_SUCCESS,
+        deviceToken: result.deviceToken
       });
     }).catch(error => {
+      // TODO(max): Retry a few times.
       return dispatch({type: types.DEVICE_TOKEN_FAILURE, error: error});
     });
   }
 };
 
-const clearGoogleUser = () => ({
-  type: types.GOOGLE_USER_REQUEST
-});
-
 const signIn = () => {
   return (dispatch, getState) => {
-    return dispatch(signInGoogleUser()).then(() => {
-      const currentGoogleUser = getState().auth.googleUser.current;
-      if (currentGoogleUser) {
-        return dispatch(signInScoutUser(currentGoogleUser));
-      } else {
-        return dispatch({
-          type: types.GOOGLE_USER_FAILURE,
-          error: 'Expected a Google user but there was none.'
-        });
-      }
+    return dispatch(ensureGoogleUser()).then(() => {
+      return dispatch(ensureDeviceToken());
     });
   }
 }
 
 export {
-  clearGoogleUser,
   signIn,
 }

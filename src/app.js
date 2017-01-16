@@ -42,16 +42,6 @@ export default class App {
     this.store.subscribe(this.onStoreUpdate.bind(this));
   }
 
-  initAuth() {
-    const googleUser = this.store.getState().auth.googleUser;
-    const deviceToken = this.store.getState().auth.deviceToken;
-    if (deviceToken.current) {
-      if (googleUser.isLoading || googleUser.error) {
-        this.store.dispatch(clearGoogleUser());
-      }
-    }
-  }
-
   onStoreUpdate() {
     const isSignedIn = Boolean(this.store.getState().auth.deviceToken.current);
     var rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
