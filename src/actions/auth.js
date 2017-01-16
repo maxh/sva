@@ -28,32 +28,35 @@ const getCurrentUserAsync = () => {
 
 const ensureGoogleUser = () => {
   return (dispatch, getState) => {
-    if (getState().auth.googleUser.current) {
-      return Promise.resolve();  // Already signed in.
+    const current = getState().auth.googleUser.current;
+    if (current) {
+      return Promise.resolve(current);  // Already signed in to Google.
     }
 
     dispatch({type: types.GOOGLE_USER_REQUEST});
     return getCurrentUserAsync().then(googleUser => {
-      return dispatch({
+      dispatch({
         type: types.GOOGLE_USER_SUCCESS,
         current: googleUser
       });
+      return googleUser;
     }).catch(error => {
-      return dispatch({
+      dispatch({
         type: types.GOOGLE_USER_FAILURE,
         error: error
       });
-    })
-  }
+    });
+  };
 };
 
-const ensureDeviceToken = () => {
+const ensureDeviceToken = googleUser => {
   return (dispatch, getState) => {
-    const googleUser = getState().auth.googleUser.current;
+    console.log('googleUser: ', getState().auth.googleUser);
     if (!googleUser) {
       throw Error('There must be googleUser to get a device token.')
     }
-    if (getState().auth.deviceToken.current) {
+    const current = getState().auth.deviceToken.current;
+    if (current) {
       return Promise.resolve();  // Already have a device token.
     }
 
@@ -85,8 +88,8 @@ const ensureDeviceToken = () => {
 
 const signIn = () => {
   return (dispatch, getState) => {
-    return dispatch(ensureGoogleUser()).then(() => {
-      return dispatch(ensureDeviceToken());
+    return dispatch(ensureGoogleUser()).then(googleUser => {
+      return dispatch(ensureDeviceToken(googleUser));
     });
   }
 }

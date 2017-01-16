@@ -10,6 +10,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
+// HACK: ScoutVoiceApp is using React Native 0.39 until all deps support 0.40.
+//       Commenting out breaking changes until then.
+//       Details:
+//       https://github.com/facebook/react-native/releases/tag/v0.40.0
+//       https://github.com/wix/react-native-navigation/pull/652
 //#import <React/RCTLog.h>
 //#import <React/RCTRootView.h>
 

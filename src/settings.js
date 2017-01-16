@@ -17,8 +17,8 @@ if (__DEV__) {
 
 // Change these during development to purge the store upon app refresh.
 settings.dev = {
-  purgeStore: false,
-  forceGoogleSignOut: false
+  purgeStore: true,
+  forceGoogleSignOut: true
 };
 
 // Safety check to prevent misconfiguration in production.

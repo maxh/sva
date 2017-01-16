@@ -27,7 +27,6 @@
 		3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D555B712F34D4C029F01E8D5 /* Entypo.ttf */; };
 		4900607E0F7440019B573622 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 623A8826413145C680B82059 /* libRCTWebRTC.a */; };
 		4AB50B2A00FE45D7990EF7A7 /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD06A3EF9118482BA8B7852D /* libRNAudio.a */; };
-		4E34F9FB791B41EB9E958F70 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93FF4CA1488F40A5B21FAD34 /* libRNGoogleSignin.a */; };
 		500A954B1E282729006588A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 500A954A1E282729006588A4 /* GoogleService-Info.plist */; };
 		500A95651E282CB6006588A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 500A954A1E282729006588A4 /* GoogleService-Info.plist */; };
 		500A95901E282F7D006588A4 /* GoogleSdk in Resources */ = {isa = PBXBuildFile; fileRef = 500A958F1E282F7D006588A4 /* GoogleSdk */; };
@@ -38,6 +37,7 @@
 		500A95991E282FC1006588A4 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A95981E282FC1006588A4 /* GoogleSignIn.framework */; };
 		500A959B1E282FC3006588A4 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A959A1E282FC3006588A4 /* GoogleSymbolUtilities.framework */; };
 		500A959D1E282FC7006588A4 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A959C1E282FC7006588A4 /* GoogleUtilities.framework */; };
+		50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A958E1E282DAD006588A4 /* libRNGoogleSignin.a */; };
 		50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 50AA70D11E284399003EA34C /* GoogleSignIn.bundle */; };
 		50C678E71E29B44200BA157D /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; };
 		50C678E81E29B49B00BA157D /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; };
@@ -322,7 +322,6 @@
 		759D2E5AE602492A84697587 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		93FF4CA1488F40A5B21FAD34 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		943D4244058A40C4A3D214A5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		AAF588D3429B42DEB30AC351 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		AE8C903B87034F858172C9EA /* SpeechSynthesizer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SpeechSynthesizer.xcodeproj; path = "../node_modules/react-native-speech/SpeechSynthesizer.xcodeproj"; sourceTree = "<group>"; };
@@ -377,7 +376,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				50CC60C11E28B27F007589DA /* libReactNativeNavigation.a in Frameworks */,
 				50C678EB1E29B4D900BA157D /* libRCTWebRTC.a in Frameworks */,
-				4E34F9FB791B41EB9E958F70 /* libRNGoogleSignin.a in Frameworks */,
+				50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */,
 				500A95931E282FB2006588A4 /* GoogleAppUtilities.framework in Frameworks */,
 				500A95951E282FB6006588A4 /* GoogleAuthUtilities.framework in Frameworks */,
 				500A95971E282FB9006588A4 /* GoogleNetworkingUtilities.framework in Frameworks */,

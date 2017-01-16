@@ -6,6 +6,9 @@
 
 #import "RCTRootView.h"
 
+// add this line before @implementation AppDelegate
+#import <RNGoogleSignin/RNGoogleSignin.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -24,6 +27,13 @@
   
   
   return YES;
+}
+
+// add this method before @end
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  
+  return [RNGoogleSignin application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 @end
