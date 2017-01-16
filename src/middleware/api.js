@@ -6,7 +6,7 @@ const API_ROOT = settings.urls.mainServer;
 const makeApiCall = (options) => {
   const {endpoint, content, method, deviceToken} = options;
 
-  const path = API_ROOT + endpoint;
+  const url = API_ROOT + endpoint;
   const fetchOptions = {
     method: method || 'GET',
     headers: new Headers()
@@ -22,7 +22,7 @@ const makeApiCall = (options) => {
         'Authorization', 'Scout DeviceToken ' + deviceToken);
   }
 
-  return fetch(path, fetchOptions)
+  return fetch(url, fetchOptions)
     .then(response => {
       return response.json().then(json => {
         if (!response.ok) {

@@ -29,8 +29,6 @@ export default class App {
 
     this.store = createStore(reducer, undefined, compose(...enhancers));
 
-    initSocket(this.store);
-
     // Persist the redux store across app reboots.
     const persist = persistStore(this.store, {storage: AsyncStorage});
     if (settings.dev.purgeStore) {

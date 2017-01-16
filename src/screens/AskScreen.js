@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Speech from 'react-native-speech';
-import { startAudioCapture } from '../actions/capture'
+import { startAudioCapture } from '../actions/capture';
+import { connectSocket } from '../actions/socket';
 
 
 class AskScreen extends Component {
@@ -39,6 +40,7 @@ class AskScreen extends Component {
   }
 
   componentWillMount() {
+    this.props.connectSocket();
     this.props.startAudioCapture();
   }
 
@@ -71,7 +73,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  startAudioCapture: startAudioCapture
+  connectSocket,
+  startAudioCapture,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskScreen);

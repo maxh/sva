@@ -58,7 +58,7 @@ const ensureDeviceToken = () => {
     }
 
     dispatch({type: types.DEVICE_TOKEN_REQUEST});
-    const path = settings.urls.mainServer + '/auth/devicetoken';
+    const url = settings.urls.mainServer + '/auth/devicetoken';
     // TODO(max): Use real device name.
     const params = {
       googleUser: googleUser,
@@ -71,7 +71,7 @@ const ensureDeviceToken = () => {
       headers: {'Content-Type': 'application/json'},
       credentials: 'same-origin'
     };
-    return fetchJson(path, options).then(result => {
+    return fetchJson(url, options).then(result => {
       return dispatch({
         type: types.DEVICE_TOKEN_SUCCESS,
         deviceToken: result.deviceToken

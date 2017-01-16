@@ -11,22 +11,22 @@ const initialState = {
 
 function lessons(state = initialState, action) {
   switch (action.type) {
-    case types.LESSONS_REQUEST:
+    case types.LOAD_LESSONS_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: undefined,
       };
-    case types.LESSONS_SUCCESS:
+    case types.LOAD_LESSONS_SUCCESS:
       return {
         isLoading: false,
         current: action.response.lessons,
         error: undefined,
       };
-    case types.LESSONS_FAILURE:
+    case types.LOAD_LESSONS_FAILURE:
       return {
         isLoading: false,
-        current: undefined,
+        current: [],
         error: action.error,
       };
     case types.ADD_LESSON_REQUEST:

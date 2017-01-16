@@ -5,9 +5,9 @@ import * as types from './types';
 const loadLessons = () => ({
   [CALL_API]: {
     types: [
-      types.LESSONS_REQUEST,
-      types.LESSONS_SUCCESS,
-      types.LESSONS_FAILURE
+      types.LOAD_LESSONS_REQUEST,
+      types.LOAD_LESSONS_SUCCESS,
+      types.LOAD_LESSONS_FAILURE
     ],
     endpoint: '/lessons',
     method: 'GET'

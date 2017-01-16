@@ -59,6 +59,12 @@ class LessonsScreen extends Component {
           <Text>Loading...</Text>
         </View>
       );
+    } else if (this.props.error) {
+      return (
+        <View>
+          <Text>Error.</Text>
+        </View>
+      );
     } else if (this.props.lessons.length === 0) {
       return (
         <View>
@@ -140,6 +146,7 @@ const mapStateToProps = state => {
   return {
     lessons: state.lessons.current,
     isLoading: state.lessons.isLoading,
+    error: state.lessons.error,
   }
 }
 
