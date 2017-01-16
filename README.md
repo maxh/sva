@@ -24,11 +24,11 @@ The app uses React Native and Redux. This post is a good introduction (watch the
 
 https://medium.com/@jonlebensold/getting-started-with-react-native-redux-2b01408c0053#.v62jfdx8u
 
-# Submitting to app store
+## Submitting to app store
 
 https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md#app-store-submission
 
-# TODO
+## TODO
 
 - Log errors to server for client-side error reporting.
 - TypeScript
