@@ -64,7 +64,6 @@
 		99108FAA54D24739B08BE524 /* libSpeechSynthesizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC76B9CFE4E4CA2AC57B8BA /* libSpeechSynthesizer.a */; };
 		9ACB51D4BE0F4D2AAA5637FF /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DD92AF245E4169839F974E /* AddressBook.framework */; };
 		9CB9DBD2557C4DCEA5E0D080 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DD39557F5A4F4512B3D07787 /* libz.tbd */; };
-		9FE41736346645B1BE84024A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5233B3D1AD14E1387CBE57F /* MaterialCommunityIcons.ttf */; };
 		AC413C9732F7475B9E9401B1 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 943D4244058A40C4A3D214A5 /* Foundation.ttf */; };
 		BC6BE6C563AA4B678BB40974 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64C5983687474CA79D8640FD /* libRNVectorIcons.a */; };
 		D5C794840E634C89B031DEB3 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BF4DEA17D64EB0A0E6CE9E /* SafariServices.framework */; };
@@ -338,7 +337,6 @@
 		DD39557F5A4F4512B3D07787 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E0D4DDEE5BD0453E862E7F4D /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		ED42A619BCCD4A86BE0C6D5B /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		F5233B3D1AD14E1387CBE57F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		FA68B6375155454F8ACCCED5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -663,7 +661,6 @@
 				FA68B6375155454F8ACCCED5 /* FontAwesome.ttf */,
 				943D4244058A40C4A3D214A5 /* Foundation.ttf */,
 				C5645B530203414BBEB76A30 /* Ionicons.ttf */,
-				F5233B3D1AD14E1387CBE57F /* MaterialCommunityIcons.ttf */,
 				ED42A619BCCD4A86BE0C6D5B /* MaterialIcons.ttf */,
 				E0D4DDEE5BD0453E862E7F4D /* Octicons.ttf */,
 				D0BB805090BA48A38F41EBD8 /* SimpleLineIcons.ttf */,
@@ -1018,7 +1015,6 @@
 				F91F802AA52945C99E603266 /* FontAwesome.ttf in Resources */,
 				AC413C9732F7475B9E9401B1 /* Foundation.ttf in Resources */,
 				8B7263F8C7334BC092EC9012 /* Ionicons.ttf in Resources */,
-				9FE41736346645B1BE84024A /* MaterialCommunityIcons.ttf in Resources */,
 				945BC6B63A4544DEB3F2190C /* MaterialIcons.ttf in Resources */,
 				7B5E4C98E50B4D3AA75FCFFB /* Octicons.ttf in Resources */,
 				6B31FAEB4CC640F99FCED71C /* SimpleLineIcons.ttf in Resources */,
@@ -1145,6 +1141,8 @@
 					"$(SRCROOT)/../node_modules/react-native-speech",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = ScoutVoiceApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1181,6 +1179,8 @@
 					"$(SRCROOT)/../node_modules/react-native-speech",
 					"$(SRCROOT)/../node_modules/react-native-audio/ios",
 					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = ScoutVoiceApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
