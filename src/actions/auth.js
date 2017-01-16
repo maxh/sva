@@ -94,3 +94,7 @@ const signIn = () => {
 export {
   signIn,
 }
+
+
+// Reading list:
+// https://github.com/devfd/react-native-google-signin
