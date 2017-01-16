@@ -6,5 +6,5 @@ import lessons from './lessons';
 
 export default combineReducers({
   auth,
-  lessons
+  lessons,
 });

@@ -18,6 +18,10 @@ http://localhost:8081/debugger-ui
 
 And open up DevTools.  This will log stuff in JS-land.  To see logs of stuff in native-land too, run `react-native log-ios` in a separate terminal window.
 
+### Linting
+
+The codebase roughly follows the Airbnb ES6 style guide. Use `npm run lint` and `npm run fix-lint`.
+
 ## Technical
 
 The app uses React Native and Redux. This post is a good introduction (watch the videos at x2 speed):

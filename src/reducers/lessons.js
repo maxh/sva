@@ -1,8 +1,5 @@
-import { combineReducers } from 'redux';
-
 import * as types from '../actions/types';
 
-const mock = [{"_id":"58750d40b79e89001bd72f8f","question":"foo","params":{"answer":"bar"},"function":"constantReply","userId":"58750cf2b79e89001bd72f8e"},{"_id":"58751445b79e89001bd72f92","question":"Set timer for 5 seconds","params":{"time":"5 seconds"},"function":"setTimer","userId":"58750cf2b79e89001bd72f8e"},{"_id":"5875278d490218001b1d1a1d","question":"What time is it in Tokyo?","params":{"city":"Tokyo"},"function":"getTimeInCity","userId":"58750cf2b79e89001bd72f8e"}];
 
 const initialState = {
   isLoading: false,
@@ -36,8 +33,10 @@ function lessons(state = initialState, action) {
       };
     case types.ADD_LESSON_SUCCESS:
       // Ensure the lesson was added?
+      return state;
     case types.ADD_LESSON_FAILURE:
       // Show the lesson in red?
+      return state;
     default:
       return state;
   }

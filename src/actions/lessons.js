@@ -7,11 +7,11 @@ const loadLessons = () => ({
     types: [
       types.LOAD_LESSONS_REQUEST,
       types.LOAD_LESSONS_SUCCESS,
-      types.LOAD_LESSONS_FAILURE
+      types.LOAD_LESSONS_FAILURE,
     ],
     endpoint: '/lessons',
-    method: 'GET'
-  }
+    method: 'GET',
+  },
 });
 
 const addLesson = lesson => ({
@@ -19,15 +19,15 @@ const addLesson = lesson => ({
     types: [
       types.ADD_LESSON_REQUEST,
       types.ADD_LESSON_SUCCESS,
-      types.ADD_LESSON_FAILURE
+      types.ADD_LESSON_FAILURE,
     ],
     endpoint: '/lessons',
     method: 'POST',
-    content: lesson
-  }
+    content: lesson,
+  },
 });
 
 export {
   loadLessons,
-  addLesson
-}
+  addLesson,
+};
