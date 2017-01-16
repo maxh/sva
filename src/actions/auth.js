@@ -4,6 +4,7 @@ import settings from '../settings';
 
 import * as types from './types';
 
+
 const INITIAL_SCOPES = [
   'https://www.googleapis.com/auth/userinfo.profile',
   'https://www.googleapis.com/auth/userinfo.email'
@@ -15,7 +16,10 @@ const authLibPromise = GoogleSignin.configure({
   webClientId: '447160699625-cuvgvmtcfpl1c1jehq9dntcd1sgomi3g.apps.googleusercontent.com',
   offlineAccess: true
 });
-GoogleSignin.signOut()
+
+if (settings.dev.forceGoogleSignOut) {
+  GoogleSignin.signOut();
+}
 
 const getCurrentUserAsync = () => {
   return authLibPromise.then(() => GoogleSignin.signIn())
@@ -40,10 +44,9 @@ const signInGoogleUser = () => {
   }
 };
 
-
 const signInScoutUser = googleUser => {
   return (dispatch, getState) => {
-    dispatch({type: types.USER_REQUEST});
+    dispatch({type: types.DEVICE_TOKEN_REQUEST});
     const path = settings.urls.mainServer + '/auth/devicetoken';
     // TODO(max): Use real device name, let scopes be different for upgrading.
     const params = {
@@ -61,18 +64,21 @@ const signInScoutUser = googleUser => {
       if (!response.ok) throw Error(resonse.statusText);
       return response.json().then(json => {
         return dispatch({
-          type: types.USER_SUCCESS,
+          type: types.DEVICE_TOKEN_SUCCESS,
           deviceToken: json.deviceToken
         });
       });
     }).catch(error => {
-      return dispatch({type: types.USER_FAILURE, error: error});
+      return dispatch({type: types.DEVICE_TOKEN_FAILURE, error: error});
     });
   }
 };
 
+const clearGoogleUser = () => ({
+  type: types.GOOGLE_USER_REQUEST
+});
 
-export const signIn = () => {
+const signIn = () => {
   return (dispatch, getState) => {
     return dispatch(signInGoogleUser()).then(() => {
       const currentGoogleUser = getState().auth.googleUser.current;
@@ -86,4 +92,9 @@ export const signIn = () => {
       }
     });
   }
+}
+
+export {
+  clearGoogleUser,
+  signIn,
 }

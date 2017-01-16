@@ -52,20 +52,31 @@ class LessonsScreen extends Component {
   }
 
   render() {
-    if (!this.props.lessons.current) {
-      return false;
+    let inner;
+    if (this.props.isLoading) {
+      return (
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      );
+    } else if (this.props.lessons.length === 0) {
+      return (
+        <View>
+          <Text>Tap "Add new" to create a lesson</Text>
+        </View>
+      );
     }
-    this.dataSource = this.dataSource.cloneWithRows(this.props.lessons.current);
+    this.dataSource = this.dataSource.cloneWithRows(this.props.lessons);
     return (
       <View>
         <ListView
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={this._renderRow}
-          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderSeparator={this._renderSeparator}
         />
       </View>
-    )
+    );
   }
 
   _renderRow(lesson) {
@@ -84,9 +95,19 @@ class LessonsScreen extends Component {
       </TouchableHighlight>
     );
   }
+
+  _renderSeparator(sectionId, rowId) {
+    return <View key={rowId} style={styles.separator} />;
+  }
 }
 
-var styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   row: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -115,9 +136,12 @@ var styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  lessons: state.lessons
-});
+const mapStateToProps = state => {
+  return {
+    lessons: state.lessons.current,
+    isLoading: state.lessons.isLoading,
+  }
+}
 
 const mapDispatchToProps = {
   loadLessons,

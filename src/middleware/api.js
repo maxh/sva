@@ -74,9 +74,9 @@ export default store => next => action => {
 
   const state = store.getState();
 
-  const deviceToken = state.auth.user.deviceToken;
+  const deviceToken = state.auth.deviceToken.current;
   if (!deviceToken) {
-    console.error('Expected a deviceToken!')
+    throw Error('Expected a deviceToken!')
   }
 
   next(actionWith({

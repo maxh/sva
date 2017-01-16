@@ -5,17 +5,15 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
+import { Navigation } from 'react-native-navigation';
 
+import settings from './settings';
 import reducer from './reducers';
 import api from './middleware/api';
 import { registerScreens } from './screens';
-import { initSocket } from './actions/socket'
+import { initSocket } from './actions/socket';
+import { clearGoogleUser } from './actions/auth';
 
-import { Navigation } from 'react-native-navigation';
-
-
-// Change this during development to purge the store upon app refresh.
-const PURGE = false;
 
 export default class App {
 
@@ -35,7 +33,7 @@ export default class App {
 
     // Persist the redux store across app reboots.
     const persist = persistStore(this.store, {storage: AsyncStorage});
-    if (PURGE) {
+    if (settings.dev.purgeStore) {
       persist.purge();
     }
 
@@ -44,8 +42,18 @@ export default class App {
     this.store.subscribe(this.onStoreUpdate.bind(this));
   }
 
+  initAuth() {
+    const googleUser = this.store.getState().auth.googleUser;
+    const deviceToken = this.store.getState().auth.deviceToken;
+    if (deviceToken.current) {
+      if (googleUser.isLoading || googleUser.error) {
+        this.store.dispatch(clearGoogleUser());
+      }
+    }
+  }
+
   onStoreUpdate() {
-    const isSignedIn = Boolean(this.store.getState().auth.user.deviceToken);
+    const isSignedIn = Boolean(this.store.getState().auth.deviceToken.current);
     var rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
     if (this.currentRootScreen != rootScreen) {
       this.currentRootScreen = rootScreen;
@@ -71,16 +79,13 @@ export default class App {
               label: 'Ask',
               screen: 'AskScreen',
               title: 'Ask',
-              navigatorStyle: {}
             },
             {
-              label: 'Train',
+              label: 'Lessons',
               screen: 'LessonsScreen',
-              title: 'Train',
-              navigatorStyle: {}
+              title: 'Lessons',
             }
           ],
-          passProps: {},
           animationType: 'slide-down',
           title: 'Scout',
           appStyle: {
@@ -90,7 +95,7 @@ export default class App {
         });
         return;
       default:
-        console.error('Unknown app root');
+        console.error('Unknown app root.');
     }
   }
 }

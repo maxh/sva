@@ -7,8 +7,8 @@ function googleUser(state = {isLoading: false}, action) {
   switch (action.type) {
     case types.GOOGLE_USER_REQUEST:
       return {
+        ...state,
         isLoading: true,
-        current: state.current,
         error: undefined
       };
     case types.GOOGLE_USER_SUCCESS:
@@ -28,24 +28,24 @@ function googleUser(state = {isLoading: false}, action) {
   }
 }
 
-function user(state = {isLoading: false}, action) {
+function deviceToken(state = {isLoading: false}, action) {
   switch (action.type) {
-    case types.USER_REQUEST:
+    case types.DEVICE_TOKEN_REQUEST:
       return {
+        ...state,
         isLoading: true,
-        deviceToken: state.deviceToken,
         error: undefined
       };
-    case types.USER_SUCCESS:
+    case types.DEVICE_TOKEN_SUCCESS:
       return {
         isLoading: false,
-        deviceToken: action.deviceToken,
+        current: action.deviceToken,
         error: undefined
       };
-    case types.USER_FAILURE:
+    case types.DEVICE_TOKEN_FAILURE:
       return {
         isLoading: false,
-        deviceToken: undefined,
+        current: undefined,
         error: action.error
       };
     default:
@@ -55,5 +55,5 @@ function user(state = {isLoading: false}, action) {
 
 export default combineReducers({
   googleUser,
-  user
+  deviceToken
 });
