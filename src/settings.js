@@ -1,11 +1,13 @@
+import LocalIP from './settings-local-ip';
+
 const settings = {};
 
 if (__DEV__) {
   settings.port = 5000;
   settings.urls = {
-    mainServer: `http://localhost:${settings.port}`,
-    binaryServer: `ws://localhost:${settings.port}`,
-  };
+    mainServer: `http://${LocalIP.ip}:${settings.port}`,
+    binaryServer: `ws://${LocalIP.ip}:${settings.port}`,
+  }
 } else {
   // TODO(max): Use prod here when it's ready.
   const host = 'scout-loftboxlabs-staging.herokuapp.com';

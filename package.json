@@ -4,7 +4,8 @@
   "private": true,
   "pre-commit": ["lint-with-error"],
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "npm run change-ip && node node_modules/react-native/local-cli/cli.js start",
+    "change-ip": "./set-ip.sh",
     "lint": "node_modules/.bin/eslint src/* || true",
     "fix-lint": "node_modules/.bin/eslint --fix src/* || true",
     "lint-with-error": "node_modules/.bin/eslint src/*",

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Speech from 'react-native-speech';
-import { startAudioCapture } from '../actions/capture';
+import { startAudioCapture, endAudioCapture } from '../actions/microphone';
 import { connectSocket } from '../actions/socket';
 
 
@@ -20,30 +20,31 @@ class AskScreen extends Component {
     .catch(error => `You've already started a speech instance: ${error}`);
   }
 
-  static pauseHandler() {
-    Speech.pause();
+  canRecord() {
+    var mic = this.props.microphone;
+    var canRecord = !mic.isRecording && !mic.isRequested;
+    return canRecord;
   }
 
-  static resumeHandler() {
-    Speech.resume();
-  }
-
-  static stopHandler() {
-    Speech.stop();
+  triggerMic() {
+    if (this.canRecord()) {
+      this.props.startAudioCapture();
+    } else {
+      this.props.endAudioCapture();
+    }
   }
 
   componentWillMount() {
     this.props.connectSocket();
-    this.props.startAudioCapture();
   }
 
   render() {
+    var recordButtonText = this.canRecord() ? "Ask" : "Stop";
+
     return (
       <View>
-        <Button title="Speak" onPress={AskScreen.startHandler} />
-        <Button title="Pause" onPress={AskScreen.pauseHandler} />
-        <Button title="Resume" onPress={AskScreen.resumeHandler} />
-        <Button title="Stop" onPress={AskScreen.stopHandler} />
+        <Button title={recordButtonText} onPress={() => {this.triggerMic()}}>
+        </Button>
       </View>
     );
   }
@@ -54,11 +55,14 @@ AskScreen.propTypes = {
   startAudioCapture: React.PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  microphone: state.microphone,
+});
 
 const mapDispatchToProps = {
   connectSocket,
   startAudioCapture,
+  endAudioCapture,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskScreen);

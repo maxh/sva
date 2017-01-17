@@ -1,3 +1,9 @@
+# Vim
+.*.swp
+
+# IP config
+src/settings-local-ip.js
+
 # OSX
 #
 .DS_Store
