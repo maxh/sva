@@ -28,6 +28,10 @@ The app uses React Native and Redux. This post is a good introduction (watch the
 
 https://medium.com/@jonlebensold/getting-started-with-react-native-redux-2b01408c0053#.v62jfdx8u
 
+## Switching wifi networks
+
+When you switch wifi networks, please re-run `npm run start` or else you'll see errors.
+
 ## Submitting to app store
 
 https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md#app-store-submission
