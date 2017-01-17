@@ -38,7 +38,7 @@ export default class App {
           blacklist: [
             'auth.googleUser',
             'auth.deviceToken.isLoading',
-          ]
+          ],
         };
         const persistor = persistStore(store, options, () => {
           resolve(store);
@@ -46,7 +46,6 @@ export default class App {
         if (settings.dev.purgeStore) {
           persistor.purge();
         }
-
       } catch (e) {
         reject(e);
       }
@@ -54,7 +53,7 @@ export default class App {
   }
 
   constructor() {
-    App.configureStore().then(store => {
+    App.configureStore().then((store) => {
       this.store = store;
       this.store.subscribe(this.ensureCorrectRootScreen.bind(this));
       registerScreens(this.store, Provider);

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import {REHYDRATE} from 'redux-persist/constants';
 
 import * as types from '../actions/types';
 
