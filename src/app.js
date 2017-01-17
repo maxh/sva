@@ -7,46 +7,71 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import { Navigation } from 'react-native-navigation';
 
 import settings from './settings';
-import reducer from './reducers';
+import rootReducer from './reducers';
 import api from './middleware/api';
 import { registerScreens } from './screens';
 
 
 export default class App {
 
-  constructor() {
-    const middleware = [thunkMiddleware, api];
+  static configureStore() {
+    const middlewares = [thunkMiddleware, api];
+
     if (__DEV__) {
-      middleware.push(createLogger());
-    }
-    const enhancers = [
-      applyMiddleware(...middleware),
-      autoRehydrate(),
-    ];
-
-    this.store = createStore(reducer, undefined, compose(...enhancers));
-
-    // Persist the redux store across app reboots.
-    const persist = persistStore(this.store, { storage: AsyncStorage });
-    if (settings.dev.purgeStore) {
-      persist.purge();
+      middlewares.push(createLogger());
     }
 
-    registerScreens(this.store, Provider);
+    return new Promise((resolve, reject) => {
+      try {
+        const store = createStore(
+          rootReducer,
+          undefined,
+          compose(
+            autoRehydrate(),
+            applyMiddleware(...middlewares),
+          ),
+        );
 
-    this.store.subscribe(this.onStoreUpdate.bind(this));
+        // The blacklist prevents weird states.
+        const options = {
+          storage: AsyncStorage,
+          blacklist: [
+            'auth.googleUser',
+            'auth.deviceToken.isLoading',
+          ]
+        };
+        const persistor = persistStore(store, options, () => {
+          resolve(store);
+        });
+        if (settings.dev.purgeStore) {
+          persistor.purge();
+        }
+
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
-  onStoreUpdate() {
+  constructor() {
+    App.configureStore().then(store => {
+      this.store = store;
+      this.store.subscribe(this.ensureCorrectRootScreen.bind(this));
+      registerScreens(this.store, Provider);
+      this.ensureCorrectRootScreen();
+    });
+  }
+
+  ensureCorrectRootScreen() {
     const isSignedIn = Boolean(this.store.getState().auth.deviceToken.current);
     const rootScreen = isSignedIn ? 'after-sign-in' : 'sign-in';
     if (this.currentRootScreen !== rootScreen) {
       this.currentRootScreen = rootScreen;
-      App.startApp(rootScreen);
+      App.showRootScreen(rootScreen);
     }
   }
 
-  static startApp(rootScreen) {
+  static showRootScreen(rootScreen) {
     switch (rootScreen) {
       case 'sign-in':
         Navigation.startSingleScreenApp({

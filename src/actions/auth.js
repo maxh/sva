@@ -21,68 +21,85 @@ if (settings.dev.forceGoogleSignOut) {
   GoogleSignin.signOut();
 }
 
-const getCurrentUserAsync = () => authLibPromise.then(() => GoogleSignin.signIn());
+let retryAttempts = 0;
+const MAX_ATTEMPTS = 1;
 
-const ensureGoogleUser = () => (dispatch, getState) => {
-  const current = getState().auth.googleUser.current;
-  if (current) {
-    return Promise.resolve(current);  // Already signed in to Google.
-  }
+const getGoogleUserAsync = () => authLibPromise.then(() => GoogleSignin.signIn());
 
+const fetchGoogleUser = () => (dispatch, getState) => {
   dispatch({ type: types.GOOGLE_USER_REQUEST });
-  return getCurrentUserAsync().then((googleUser) => {
-    dispatch({
+  return getGoogleUserAsync().then((googleUser) => {
+    return dispatch({
       type: types.GOOGLE_USER_SUCCESS,
       current: googleUser,
     });
-    return googleUser;
   }).catch((error) => {
-    dispatch({
+    return dispatch({
       type: types.GOOGLE_USER_FAILURE,
       error,
     });
   });
 };
 
-const ensureDeviceToken = (googleUser) => {
-  return (dispatch, getState) => {
-    if (!googleUser) {
-      throw Error('There must be googleUser to get a device token.');
-    }
-    const current = getState().auth.deviceToken.current;
-    if (current) {
-      return Promise.resolve();  // Already have a device token.
-    }
-
-    dispatch({ type: types.DEVICE_TOKEN_REQUEST });
-    const url = `${settings.urls.mainServer}/auth/devicetoken`;
-      // TODO(max): Use real device name.
-    const params = {
-      googleUser,
-      deviceName: 'Max Simulator Foo Bar',
-      scopes: INITIAL_SCOPES,
-    };
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(params),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
-    };
-    return fetchJson(url, options).then(result => dispatch({
-      type: types.DEVICE_TOKEN_SUCCESS,
-      deviceToken: result.deviceToken,
-    })).catch(error =>
-        // TODO(max): Retry a few times.
-         dispatch({ type: types.DEVICE_TOKEN_FAILURE, error }));
-  };
+const ensureGoogleUser = () => (dispatch, getState) => {
+  const current = getState().auth.googleUser.current;
+  if (current) {
+    return Promise.resolve();  // Already signed in to Google.
+  }
+  return dispatch(fetchGoogleUser());
 };
 
-const signIn = () => {
-  return (dispatch, getState) => {
-    return dispatch(ensureGoogleUser()).then((googleUser) => {
-      return dispatch(ensureDeviceToken(googleUser));
-    });
+const fetchDeviceToken = () => (dispatch, getState) => {
+  const googleUser = getState().auth.googleUser.current;
+  if (!googleUser) {
+    throw Error('There must be googleUser to get a device token.');
+  }
+
+  dispatch({ type: types.DEVICE_TOKEN_REQUEST });
+
+  const url = `${settings.urls.mainServer}/auth/devicetoken`;
+    // TODO(max): Use real device name.
+  const params = {
+    googleUser,
+    deviceName: 'Max Simulator Foo Bar',
+    scopes: INITIAL_SCOPES,
   };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+  };
+
+  return fetchJson(url, options).then((result) => {
+    return dispatch({
+      type: types.DEVICE_TOKEN_SUCCESS,
+      deviceToken: result.deviceToken,
+    });
+  }).catch((error) => {
+    if (retryAttempts < MAX_ATTEMPTS) {
+      retryAttempts += 1;
+      return dispatch(forceFullSignInFlow());  // eslint-disable-line no-use-before-define
+    }
+    return dispatch({ type: types.DEVICE_TOKEN_FAILURE, error });
+  });
+};
+
+const ensureDeviceToken = () => (dispatch, getState) => {
+  const current = getState().auth.deviceToken.current;
+  if (current) {
+    return Promise.resolve();  // Already have a device token.
+  }
+  return dispatch(fetchDeviceToken());
+};
+
+const forceFullSignInFlow = () => (dispatch, getState) => {
+  GoogleSignin.signOut();
+  return dispatch(fetchGoogleUser()).then(() => dispatch(fetchDeviceToken()));
+};
+
+const signIn = () => (dispatch, getState) => {
+  return dispatch(ensureGoogleUser()).then(() => dispatch(ensureDeviceToken()));
 };
 
 export {

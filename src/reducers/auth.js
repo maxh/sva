@@ -1,9 +1,14 @@
 import { combineReducers } from 'redux';
+import {REHYDRATE} from 'redux-persist/constants';
 
 import * as types from '../actions/types';
 
 
-function googleUser(state = { isLoading: false }, action) {
+function googleUser(state = {
+  isLoading: false,
+  current: undefined,
+  error: undefined,
+}, action) {
   switch (action.type) {
     case types.GOOGLE_USER_REQUEST:
       return {
@@ -28,7 +33,11 @@ function googleUser(state = { isLoading: false }, action) {
   }
 }
 
-function deviceToken(state = { isLoading: false }, action) {
+function deviceToken(state = {
+  isLoading: false,
+  current: undefined,
+  error: undefined,
+}, action) {
   switch (action.type) {
     case types.DEVICE_TOKEN_REQUEST:
       return {
