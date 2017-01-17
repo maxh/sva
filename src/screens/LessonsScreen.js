@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: LIGHT_GRAY,
   },
-  question: {
+  utterance: {
     fontWeight: 'bold',
     fontSize: 20,
   },
@@ -56,8 +56,8 @@ class LessonsScreen extends Component {
       <TouchableHighlight>
         <View>
           <View style={styles.row}>
-            <Text style={styles.question}>
-              {lesson.question}
+            <Text style={styles.utterance}>
+              {lesson.utterance}
             </Text>
             <Text style={styles.detail}>
               {getLessonParams(lesson)}
@@ -84,7 +84,7 @@ class LessonsScreen extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'add-new') {
         this.props.addLesson({
-          question: 'foo',
+          utterance: 'foo',
           fnName: 'constantReply',
           params: { answer: 'bar' },
         });
