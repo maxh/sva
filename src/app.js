@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { Navigation } from 'react-native-navigation';
+import createFilter from 'redux-persist-transform-filter';
 
 import settings from './settings';
 import rootReducer from './reducers';
@@ -15,6 +16,10 @@ import microphoneToSocket from './middleware/microphone-to-socket';
 import { registerScreens } from './screens';
 
 import * as types from './actions/types';
+
+const forAuthOnlyPersistDeviceToken = createFilter(
+  'auth', ['deviceToken.current'],
+);
 
 export default class App {
 
@@ -42,11 +47,10 @@ export default class App {
         const options = {
           storage: AsyncStorage,
           blacklist: [
-            'auth.googleUser',
-            'auth.deviceToken.isLoading',
             'microphone',
             'socket',
           ],
+          transforms: [forAuthOnlyPersistDeviceToken]
         };
         const persistor = persistStore(store, options, () => {
           resolve(store);

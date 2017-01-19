@@ -2,7 +2,9 @@
   "name": "ScoutVoiceApp",
   "version": "0.0.1",
   "private": true,
-  "pre-commit": ["lint-with-error"],
+  "pre-commit": [
+    "lint-with-error"
+  ],
   "scripts": {
     "start": "npm run change-ip && node node_modules/react-native/local-cli/cli.js start",
     "change-ip": "./set-ip.sh",
@@ -24,6 +26,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-persist": "^4.0.1",
+    "redux-persist-transform-filter": "0.0.6",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
