@@ -7,7 +7,7 @@ if (__DEV__) {
   settings.urls = {
     mainServer: `http://${LocalIP.ip}:${settings.port}`,
     binaryServer: `ws://${LocalIP.ip}:${settings.port}`,
-  }
+  };
 } else {
   // TODO(max): Use prod here when it's ready.
   const host = 'scout-loftboxlabs-staging.herokuapp.com';

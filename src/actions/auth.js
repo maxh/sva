@@ -10,21 +10,29 @@ const INITIAL_SCOPES = [
   'https://www.googleapis.com/auth/userinfo.email',
 ];
 
-const authLibPromise = GoogleSignin.configure({
-  scopes: INITIAL_SCOPES,
-  iosClientId: '447160699625-5rv22eleubev18po80835dbk33k190fk.apps.googleusercontent.com',
-  webClientId: '447160699625-cuvgvmtcfpl1c1jehq9dntcd1sgomi3g.apps.googleusercontent.com',
-  offlineAccess: true,
-});
 
-if (settings.dev.forceGoogleSignOut) {
-  GoogleSignin.signOut();
-}
+let authLibPromise = null;
+
+const getAuthLibPromise = () => {
+  if (!authLibPromise) {
+    authLibPromise = GoogleSignin.configure({
+      scopes: INITIAL_SCOPES,
+      iosClientId: '447160699625-5rv22eleubev18po80835dbk33k190fk.apps.googleusercontent.com',
+      webClientId: '447160699625-cuvgvmtcfpl1c1jehq9dntcd1sgomi3g.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
+
+    if (settings.dev.forceGoogleSignOut) {
+      GoogleSignin.signOut();
+    }
+  }
+  return authLibPromise;
+};
 
 let retryAttempts = 0;
 const MAX_ATTEMPTS = 1;
 
-const getGoogleUserAsync = () => authLibPromise.then(() => GoogleSignin.signIn());
+const getGoogleUserAsync = () => getAuthLibPromise().then(() => GoogleSignin.signIn());
 
 const fetchGoogleUser = () => (dispatch, getState) => {
   dispatch({ type: types.GOOGLE_USER_REQUEST });

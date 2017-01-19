@@ -33,6 +33,7 @@
     "babel-eslint": "^7.1.1",
     "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.1",
+    "enzyme": "^2.7.0",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -41,9 +42,11 @@
     "eslint-plugin-react-native": "^2.2.1",
     "jest": "18.1.0",
     "pre-commit": "^1.2.2",
+    "react-native-mock": "^0.2.9",
     "react-test-renderer": "15.4.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "testRegex": "\\.test\\.js$"
   }
 }
