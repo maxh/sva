@@ -9,16 +9,22 @@ import { Navigation } from 'react-native-navigation';
 import settings from './settings';
 import rootReducer from './reducers';
 import api from './middleware/api';
+import microphone from './middleware/microphone';
+import socket from './middleware/socket';
+import microphoneToSocket from './middleware/microphone-to-socket';
 import { registerScreens } from './screens';
 
+import * as types from './actions/types';
 
 export default class App {
 
   static configureStore() {
-    const middlewares = [thunkMiddleware, api];
+    const middlewares = [thunkMiddleware, api, microphone, socket, microphoneToSocket];
 
     if (__DEV__) {
-      middlewares.push(createLogger());
+      middlewares.push(createLogger({
+        predicate: (getState, action) => action.type !== types.MICROPHONE_DATA_RECEIVED
+      }));
     }
 
     return new Promise((resolve, reject) => {
@@ -38,6 +44,8 @@ export default class App {
           blacklist: [
             'auth.googleUser',
             'auth.deviceToken.isLoading',
+            'microphone',
+            'socket',
           ],
         };
         const persistor = persistStore(store, options, () => {

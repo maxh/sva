@@ -120,9 +120,9 @@ RCT_EXPORT_METHOD(startCapture)
   [self changeRecordStatus:true];
 }
 
-RCT_EXPORT_METHOD(endCapture)
+RCT_EXPORT_METHOD(stopCapture)
 {
-  RCTLogInfo(@"Ending capture");
+  RCTLogInfo(@"Stopping capture");
 
   if (_recordSession == nil || !_recordSession.isRunning) {
     [self error:@"Tried to stop recording but the recordSession isn't running!"];

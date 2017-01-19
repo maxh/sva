@@ -9,10 +9,10 @@ function microphone(state = {isRecording: false, isRequested: false}, action) {
         ...state,
         isRecording: action.isRecording,
       };
-    case types.RECORDING_REQUESTED:
+    case types.RECORDING_STATUS_CHANGING:
       return {
         ...state,
-        isRequested: action.isRequested,
+        isRequested: action.willRecord,
       };
     default:
       return state;
