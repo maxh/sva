@@ -24,6 +24,9 @@ module.exports = {
     "__DEV__": true,
     "fetch": true,
     "Headers": true,
-    "WebSocket": true
+    "WebSocket": true,
+    "expect": true,
+    "jest": true,
+    "it": true,
   }
 };
