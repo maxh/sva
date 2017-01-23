@@ -28,7 +28,7 @@ export default class App {
 
     if (__DEV__) {
       middlewares.push(createLogger({
-        predicate: (getState, action) => action.type !== types.MICROPHONE_DATA_RECEIVED
+        predicate: (getState, action) => action.type !== types.MICROPHONE_DATA_RECEIVED,
       }));
     }
 
@@ -50,7 +50,7 @@ export default class App {
             'microphone',
             'socket',
           ],
-          transforms: [forAuthOnlyPersistDeviceToken]
+          transforms: [forAuthOnlyPersistDeviceToken],
         };
         const persistor = persistStore(store, options, () => {
           resolve(store);

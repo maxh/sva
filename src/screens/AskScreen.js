@@ -46,8 +46,13 @@ class AskScreen extends Component {
     .catch(error => `You've already started a speech instance: ${error}`);
   }
 
+  componentWillMount() {
+    this.props.connectSocket();
+  }
+
+
   isRecording() {
-    var mic = this.props.microphone;
+    const mic = this.props.microphone;
     return mic.isRecording || mic.isRequested;
   }
 
@@ -59,19 +64,14 @@ class AskScreen extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.connectSocket();
-  }
-
   render() {
-    var isSocketConnected = this.props.socket.isConnected;
-    var recordButtonText = this.isRecording() ? "Stop" : "Ask";
-    var transcript = this.props.transcript;
-    var answer = this.props.answer;
+    const isSocketConnected = this.props.socket.isConnected;
+    const recordButtonText = this.isRecording() ? 'Stop' : 'Ask';
+    const transcript = this.props.ask.transcript;
+    const answer = this.props.ask.answer;
 
-    var buttonOrConnecting = isSocketConnected ? (
-        <Button title={recordButtonText} onPress={() => {this.triggerMic()}}>
-        </Button>) : (
+    const buttonOrConnecting = isSocketConnected ? (
+      <Button title={recordButtonText} onPress={() => { this.triggerMic(); }} />) : (
         <Text style={styles.question}>Connecting...</Text>
       );
 
@@ -90,6 +90,10 @@ class AskScreen extends Component {
 AskScreen.propTypes = {
   connectSocket: React.PropTypes.func.isRequired,
   startAudioCapture: React.PropTypes.func.isRequired,
+  stopAudioCapture: React.PropTypes.func.isRequired,
+  microphone: React.PropTypes.object.isRequired,
+  socket: React.PropTypes.object.isRequired,
+  ask: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

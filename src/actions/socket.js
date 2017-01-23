@@ -8,17 +8,17 @@ export const connectSocket = () => ({
   },
 });
 
-export const sendAudioData = (data) => ({
+export const sendAudioData = data => ({
   [USE_SOCKET]: {
     type: types.SEND_AUDIO_DATA,
-    data: data,
+    data,
   },
 });
 
-export const sendSampleRate = (sampleRate) => ({
+export const sendSampleRate = sampleRate => ({
   [USE_SOCKET]: {
     type: types.SEND_SAMPLE_RATE,
-    sampleRate: sampleRate,
+    sampleRate,
   },
 });
 

@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
-
 import * as types from '../actions/types';
 
-function microphone(state = {isRecording: false, isRequested: false}, action) {
+
+function microphone(state = { isRecording: false, isRequested: false }, action) {
   switch (action.type) {
     case types.RECORDING_STATUS_CHANGED:
       return {

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export class SignInScreen extends Component {
+class SignInScreen extends Component {
   static navigatorStyle = {
     drawUnderNavBar: true,
     navBarHidden: true,

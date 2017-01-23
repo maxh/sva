@@ -1,6 +1,6 @@
 import settings from '../settings';
 import * as types from '../actions/types';
-import {connectSocket} from '../actions/socket';
+import { connectSocket } from '../actions/socket';
 import { getJwt } from '../infra/auth';
 
 let ws = null;
@@ -38,15 +38,15 @@ const onMessage = store => (event) => {
 };
 
 const reconnectAfterDelay = (store) => {
-  var socketState = store.getState().socket;
+  const socketState = store.getState().socket;
   if (socketState.isConnecting) {
-    throw("Asked to reconnect, but already reconnecting");
+    throw Error('Asked to reconnect, but already reconnecting');
   }
   if (socketState.isConnected) {
-    throw("Asked to reconnect, but already connected");
+    throw Error('Asked to reconnect, but already connected');
   }
 
-  var delay = 1000 * Math.pow(1.6, Math.min(socketState.numRetries, 4)) * (Math.random() + 0.5);
+  const delay = 1000 * (1.6 ** Math.min(socketState.numRetries, 4)) * (Math.random() + 0.5);
 
   store.dispatch({ type: types.SOCKET_CONNECTING });
   setTimeout(() => store.dispatch(connectSocket()), delay);
@@ -58,9 +58,9 @@ const onClose = store => () => {
 };
 
 const connect = (store) => {
-  var socketState = store.getState().socket;
+  const socketState = store.getState().socket;
   if (socketState.isConnected) {
-    throw("Asked to connect, but already connected");
+    throw Error('Asked to connect, but already connected');
   }
 
   const deviceToken = store.getState().auth.deviceToken.current;
@@ -95,39 +95,39 @@ const disconnect = (store) => {
 
 const sendJSONOverSocket = (store, obj) => {
   if (!ws) {
-    throw(`Tried to send ${obj} but there was no socket`);
+    throw Error(`Tried to send ${obj} but there was no socket`);
   }
-  var socketState = store.getState().socket;
+  const socketState = store.getState().socket;
   if (!socketState.isConnected) {
-    throw(`Tried to send ${obj} but we're not connected!`);
+    throw Error(`Tried to send ${obj} but we're not connected!`);
   }
   ws.send(JSON.stringify(obj));
-}
+};
 
 const sendSampleRate = (store, sampleRate) => {
   if (!sampleRate) {
-    throw("No sample rate specified");
+    throw Error('No sample rate specified');
   }
 
   sendJSONOverSocket(store, {
     type: 'CLIENT_SAMPLE_RATE',
-    sampleRate: sampleRate,
+    sampleRate,
   });
-}
+};
 
 const sendAudioData = (store, data) => {
   if (!ws) {
-    throw("Tried to send audio data but there was no socket");
+    throw Error('Tried to send audio data but there was no socket');
   }
   if (!data || !data.length) {
-    throw("Asked to send data but it's not an array");
+    throw Error("Asked to send data but it's not an array");
   }
-  var socketState = store.getState().socket;
+  const socketState = store.getState().socket;
   if (!socketState.isConnected) {
-    throw("Tried to send audio but we're not connected!");
+    throw Error("Tried to send audio but we're not connected!");
   }
   ws.send(new Uint16Array(data));
-}
+};
 
 const sendEndOfSpeech = (store) => {
   sendJSONOverSocket(store, {

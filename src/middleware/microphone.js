@@ -1,10 +1,12 @@
-import * as types from '../actions/types';
 import { NativeModules, NativeEventEmitter } from 'react-native';
+
+import * as types from '../actions/types';
+
 
 /* NATIVE HANDLERS */
 const capture = new NativeEventEmitter(NativeModules.MicrophoneCapture);
 let SavedDispatch = null;
-const statusSubscriber = capture.addListener('recordingStatus', (status) => {
+capture.addListener('recordingStatus', (status) => {
   if (SavedDispatch) {
     SavedDispatch({
       type: types.RECORDING_STATUS_CHANGED,
@@ -12,7 +14,7 @@ const statusSubscriber = capture.addListener('recordingStatus', (status) => {
     });
   }
 });
-const micDataSubscriber = capture.addListener('micData', (params) => {
+capture.addListener('micData', (params) => {
   if (SavedDispatch) {
     SavedDispatch({
       type: types.MICROPHONE_DATA_RECEIVED,
@@ -21,19 +23,19 @@ const micDataSubscriber = capture.addListener('micData', (params) => {
     });
   }
 });
-const errorSubscriber = capture.addListener('error', (msg) => {
-  throw("Microphone error: " + msg);
+capture.addListener('error', (msg) => {
+  throw Error(`Microphone error: ${msg}`);
 });
 /* END NATIVE HANDLERS */
 
 const setAudioCapture = (store, shouldCapture, isFromServer) => {
-  if (shouldCapture == store.getState().microphone.isRequested) {
+  if (shouldCapture === store.getState().microphone.isRequested) {
     if (!isFromServer) {
       // it's ok if the server tells us to start or stop and we're
       // already in that state -- but it's not ok if it's initiated by
       // the client and we're already in that state
-      throw("Tried to set audio capture to " + shouldCapture +
-        " but it's already " + store.getState().microphone.isRequested);
+      throw Error(`Tried to set audio capture to ${shouldCapture
+        } but it's already ${store.getState().microphone.isRequested}`);
     }
     return;
   }
@@ -42,7 +44,7 @@ const setAudioCapture = (store, shouldCapture, isFromServer) => {
   store.dispatch({
     type: types.RECORDING_STATUS_CHANGING,
     willRecord: shouldCapture,
-    isFromServer: isFromServer,
+    isFromServer,
   });
 
   if (shouldCapture) {
@@ -63,10 +65,10 @@ export default store => next => (action) => {
 
   switch (microphone.type) {
     case types.USER_REQUEST_RECORDING:
-      setAudioCapture(store, microphone.shouldRecord, false /*isFromServer*/);
+      setAudioCapture(store, microphone.shouldRecord, false /* isFromServer*/);
       break;
     case types.SERVER_TERMINATED_CAPTURE:
-      setAudioCapture(store, false /*shouldCapture*/, true /*isFromServer*/);
+      setAudioCapture(store, false /* shouldCapture*/, true /* isFromServer*/);
       break;
     default:
       throw Error(`Unexpected microphone action type: ${microphone.type}`);

@@ -15,10 +15,10 @@ const stopAudioCapture = () => ({
   },
 });
 
-const serverTerminatedCapture = (reason) => ({
+const serverTerminatedCapture = reason => ({
   [USE_MICROPHONE]: {
     type: types.SERVER_TERMINATED_CAPTURE,
-    reason: reason,
+    reason,
   },
 });
 
@@ -26,4 +26,4 @@ export {
   startAudioCapture,
   stopAudioCapture,
   serverTerminatedCapture,
-}
+};

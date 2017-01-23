@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
-
 import * as types from '../actions/types';
 
-function socket(state = {isConnected: false, numRetries: 0, isConnecting: false}, action) {
+
+function socket(state = { isConnected: false, numRetries: 0, isConnecting: false }, action) {
   switch (action.type) {
     case types.RECORDING_STATUS_CHANGED:
       return {
@@ -26,13 +25,14 @@ function socket(state = {isConnected: false, numRetries: 0, isConnecting: false}
         ...state,
         isConnecting: true,
       };
-    case types.SOCKET_ERROR:
-      var numRetries = state.numRetries + 1;
+    case types.SOCKET_ERROR: {
+      const numRetries = state.numRetries + 1;
       return {
         ...state,
-        numRetries: numRetries,
+        numRetries,
         isConnecting: false,
       };
+    }
     default:
       return state;
   }
