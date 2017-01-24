@@ -26,10 +26,6 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		21BB65271E2D95B70095811E /* MicrophoneCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BB65261E2D95B70095811E /* MicrophoneCapture.m */; };
 		21C95EA21E31487C00278902 /* WakeWordDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21C95EA11E31487C00278902 /* WakeWordDetector.mm */; };
-		21C95EB61E3149DD00278902 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */; };
-		21C95EB71E3149DD00278902 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB41E3149DD00278902 /* OpenEars.framework */; };
-		21C95EB81E3149DD00278902 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB51E3149DD00278902 /* Slt.framework */; };
-		21C95EBA1E315AFD00278902 /* RejectoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB91E315AFD00278902 /* RejectoDemo.framework */; };
 		21C95EBC1E3166EE00278902 /* libsnowboy-detect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */; };
 		21C95EC01E31786B00278902 /* common.res in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBE1E31783400278902 /* common.res */; };
 		21C95EC11E31786B00278902 /* hotword.pmdl in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBF1E31783400278902 /* hotword.pmdl */; };
@@ -304,10 +300,6 @@
 		21BB65261E2D95B70095811E /* MicrophoneCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicrophoneCapture.m; sourceTree = "<group>"; };
 		21C95EA11E31487C00278902 /* WakeWordDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WakeWordDetector.mm; sourceTree = "<group>"; };
 		21C95EA31E3148B100278902 /* WakeWordDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WakeWordDetector.h; sourceTree = "<group>"; };
-		21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
-		21C95EB41E3149DD00278902 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
-		21C95EB51E3149DD00278902 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
-		21C95EB91E315AFD00278902 /* RejectoDemo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RejectoDemo.framework; sourceTree = "<group>"; };
 		21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libsnowboy-detect.a"; sourceTree = "<group>"; };
 		21C95EBD1E316A7A00278902 /* snowboy-detect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "snowboy-detect.hpp"; sourceTree = "<group>"; };
 		21C95EBE1E31783400278902 /* common.res */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.res; sourceTree = "<group>"; };
@@ -396,7 +388,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				50CC60C11E28B27F007589DA /* libReactNativeNavigation.a in Frameworks */,
-				21C95EB81E3149DD00278902 /* Slt.framework in Frameworks */,
 				50C678EB1E29B4D900BA157D /* libRCTWebRTC.a in Frameworks */,
 				50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */,
 				500A95931E282FB2006588A4 /* GoogleAppUtilities.framework in Frameworks */,
@@ -409,9 +400,7 @@
 				D5C794840E634C89B031DEB3 /* SafariServices.framework in Frameworks */,
 				73A83AEED9164BFE887D1A2D /* SystemConfiguration.framework in Frameworks */,
 				50C678E81E29B49B00BA157D /* WebRTC.framework in Frameworks */,
-				21C95EB71E3149DD00278902 /* OpenEars.framework in Frameworks */,
 				9ACB51D4BE0F4D2AAA5637FF /* AddressBook.framework in Frameworks */,
-				21C95EBA1E315AFD00278902 /* RejectoDemo.framework in Frameworks */,
 				BC6BE6C563AA4B678BB40974 /* libRNVectorIcons.a in Frameworks */,
 				0DF629D93BEA4AD999DAF76F /* libReactNativeNavigation.a in Frameworks */,
 				99108FAA54D24739B08BE524 /* libSpeechSynthesizer.a in Frameworks */,
@@ -528,17 +517,6 @@
 				3DAD3EA31DF850E9000B6D8A /* libReact-tvOS.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		21C95EB21E3149DD00278902 /* OpenEars */ = {
-			isa = PBXGroup;
-			children = (
-				21C95EB91E315AFD00278902 /* RejectoDemo.framework */,
-				21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */,
-				21C95EB41E3149DD00278902 /* OpenEars.framework */,
-				21C95EB51E3149DD00278902 /* Slt.framework */,
-			);
-			path = OpenEars;
 			sourceTree = "<group>";
 		};
 		500A95711E282DAD006588A4 /* Products */ = {
@@ -672,7 +650,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				21C95EB21E3149DD00278902 /* OpenEars */,
 				500A958F1E282F7D006588A4 /* GoogleSdk */,
 				13B07FAE1A68108700A75B9A /* ScoutVoiceApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1058,7 +1035,6 @@
 				50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */,
 				500A95901E282F7D006588A4 /* GoogleSdk in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				21C95EB61E3149DD00278902 /* AcousticModelEnglish.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */,
 				03290E2CB1DE459093CE1F76 /* EvilIcons.ttf in Resources */,

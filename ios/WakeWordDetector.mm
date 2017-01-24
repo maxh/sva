@@ -12,18 +12,10 @@
 
 #import "RCTLog.h"
 
-#import <OpenEars/OELanguageModelGenerator.h>
-#import <RejectoDemo/OELanguageModelGenerator+Rejecto.h>
-#import <OpenEars/OEAcousticModel.h>
-
-#import <OpenEars/OEPocketsphinxController.h>
-#import <OpenEars/OEAcousticModel.h>
-
 #import "snowboy-detect.hpp"
 
 @interface WakeWordDetector ()
 - (void)error:(NSString *)errMsg;
-@property (strong, nonatomic) OEEventsObserver *openEarsEventsObserver;
 @end
 
 @implementation WakeWordDetector {

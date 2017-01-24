@@ -8,11 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <OpenEars/OEEventsObserver.h>
-
 #import "RCTBridgeModule.h"
 #import "RCTEventEmitter.h"
 
-@interface WakeWordDetector : RCTEventEmitter <RCTBridgeModule, OEEventsObserverDelegate>
+@interface WakeWordDetector : RCTEventEmitter <RCTBridgeModule>
 
 @end
