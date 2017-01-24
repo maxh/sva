@@ -25,6 +25,14 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		21BB65271E2D95B70095811E /* MicrophoneCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BB65261E2D95B70095811E /* MicrophoneCapture.m */; };
+		21C95EA21E31487C00278902 /* WakeWordDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21C95EA11E31487C00278902 /* WakeWordDetector.mm */; };
+		21C95EB61E3149DD00278902 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */; };
+		21C95EB71E3149DD00278902 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB41E3149DD00278902 /* OpenEars.framework */; };
+		21C95EB81E3149DD00278902 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB51E3149DD00278902 /* Slt.framework */; };
+		21C95EBA1E315AFD00278902 /* RejectoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EB91E315AFD00278902 /* RejectoDemo.framework */; };
+		21C95EBC1E3166EE00278902 /* libsnowboy-detect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */; };
+		21C95EC01E31786B00278902 /* common.res in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBE1E31783400278902 /* common.res */; };
+		21C95EC11E31786B00278902 /* hotword.pmdl in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBF1E31783400278902 /* hotword.pmdl */; };
 		3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D555B712F34D4C029F01E8D5 /* Entypo.ttf */; };
 		4900607E0F7440019B573622 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 623A8826413145C680B82059 /* libRCTWebRTC.a */; };
 		4AB50B2A00FE45D7990EF7A7 /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD06A3EF9118482BA8B7852D /* libRNAudio.a */; };
@@ -294,6 +302,16 @@
 		18BE7A93827C403BAB6106D2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		21BB65251E2D95B60095811E /* MicrophoneCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicrophoneCapture.h; sourceTree = "<group>"; };
 		21BB65261E2D95B70095811E /* MicrophoneCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicrophoneCapture.m; sourceTree = "<group>"; };
+		21C95EA11E31487C00278902 /* WakeWordDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WakeWordDetector.mm; sourceTree = "<group>"; };
+		21C95EA31E3148B100278902 /* WakeWordDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WakeWordDetector.h; sourceTree = "<group>"; };
+		21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		21C95EB41E3149DD00278902 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		21C95EB51E3149DD00278902 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		21C95EB91E315AFD00278902 /* RejectoDemo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RejectoDemo.framework; sourceTree = "<group>"; };
+		21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libsnowboy-detect.a"; sourceTree = "<group>"; };
+		21C95EBD1E316A7A00278902 /* snowboy-detect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "snowboy-detect.hpp"; sourceTree = "<group>"; };
+		21C95EBE1E31783400278902 /* common.res */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.res; sourceTree = "<group>"; };
+		21C95EBF1E31783400278902 /* hotword.pmdl */ = {isa = PBXFileReference; lastKnownFileType = file; path = hotword.pmdl; sourceTree = "<group>"; };
 		30BF4DEA17D64EB0A0E6CE9E /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		357DDEEB62914234A5D35CF3 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		4CC76B9CFE4E4CA2AC57B8BA /* libSpeechSynthesizer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSpeechSynthesizer.a; sourceTree = "<group>"; };
@@ -354,6 +372,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C95EBC1E3166EE00278902 /* libsnowboy-detect.a in Frameworks */,
 				50C678FF1E29B52A00BA157D /* libstdc++.tbd in Frameworks */,
 				50C678FD1E29B52400BA157D /* libsqlite3.tbd in Frameworks */,
 				50C678FB1E29B51E00BA157D /* libc.tbd in Frameworks */,
@@ -377,6 +396,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				50CC60C11E28B27F007589DA /* libReactNativeNavigation.a in Frameworks */,
+				21C95EB81E3149DD00278902 /* Slt.framework in Frameworks */,
 				50C678EB1E29B4D900BA157D /* libRCTWebRTC.a in Frameworks */,
 				50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */,
 				500A95931E282FB2006588A4 /* GoogleAppUtilities.framework in Frameworks */,
@@ -389,7 +409,9 @@
 				D5C794840E634C89B031DEB3 /* SafariServices.framework in Frameworks */,
 				73A83AEED9164BFE887D1A2D /* SystemConfiguration.framework in Frameworks */,
 				50C678E81E29B49B00BA157D /* WebRTC.framework in Frameworks */,
+				21C95EB71E3149DD00278902 /* OpenEars.framework in Frameworks */,
 				9ACB51D4BE0F4D2AAA5637FF /* AddressBook.framework in Frameworks */,
+				21C95EBA1E315AFD00278902 /* RejectoDemo.framework in Frameworks */,
 				BC6BE6C563AA4B678BB40974 /* libRNVectorIcons.a in Frameworks */,
 				0DF629D93BEA4AD999DAF76F /* libReactNativeNavigation.a in Frameworks */,
 				99108FAA54D24739B08BE524 /* libSpeechSynthesizer.a in Frameworks */,
@@ -481,7 +503,9 @@
 		13B07FAE1A68108700A75B9A /* ScoutVoiceApp */ = {
 			isa = PBXGroup;
 			children = (
+				21C95EBD1E316A7A00278902 /* snowboy-detect.hpp */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				21BB65251E2D95B60095811E /* MicrophoneCapture.h */,
@@ -491,6 +515,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				21C95EA11E31487C00278902 /* WakeWordDetector.mm */,
+				21C95EA31E3148B100278902 /* WakeWordDetector.h */,
 			);
 			name = ScoutVoiceApp;
 			sourceTree = "<group>";
@@ -502,6 +528,17 @@
 				3DAD3EA31DF850E9000B6D8A /* libReact-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		21C95EB21E3149DD00278902 /* OpenEars */ = {
+			isa = PBXGroup;
+			children = (
+				21C95EB91E315AFD00278902 /* RejectoDemo.framework */,
+				21C95EB31E3149DD00278902 /* AcousticModelEnglish.bundle */,
+				21C95EB41E3149DD00278902 /* OpenEars.framework */,
+				21C95EB51E3149DD00278902 /* Slt.framework */,
+			);
+			path = OpenEars;
 			sourceTree = "<group>";
 		};
 		500A95711E282DAD006588A4 /* Products */ = {
@@ -635,6 +672,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				21C95EB21E3149DD00278902 /* OpenEars */,
 				500A958F1E282F7D006588A4 /* GoogleSdk */,
 				13B07FAE1A68108700A75B9A /* ScoutVoiceApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -659,6 +697,8 @@
 		C53CFB3D56AE4028A7075C9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				21C95EBE1E31783400278902 /* common.res */,
+				21C95EBF1E31783400278902 /* hotword.pmdl */,
 				D555B712F34D4C029F01E8D5 /* Entypo.ttf */,
 				D91C774C4F4849EAA2BBEA08 /* EvilIcons.ttf */,
 				FA68B6375155454F8ACCCED5 /* FontAwesome.ttf */,
@@ -1013,9 +1053,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C95EC01E31786B00278902 /* common.res in Resources */,
+				21C95EC11E31786B00278902 /* hotword.pmdl in Resources */,
 				50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */,
 				500A95901E282F7D006588A4 /* GoogleSdk in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				21C95EB61E3149DD00278902 /* AcousticModelEnglish.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */,
 				03290E2CB1DE459093CE1F76 /* EvilIcons.ttf in Resources */,
@@ -1079,6 +1122,7 @@
 				21BB65271E2D95B70095811E /* MicrophoneCapture.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				21C95EA21E31487C00278902 /* WakeWordDetector.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,6 +1194,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1160,7 +1205,10 @@
 					"$(PROJECT_DIR)/GoogleSdk",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
+					"$(PROJECT_DIR)/OpenEars",
 				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)/../../react-native/React/**",
@@ -1174,7 +1222,10 @@
 				INFOPLIST_FILE = ScoutVoiceApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-webrtc/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1190,9 +1241,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = K7U47MHWMH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1200,7 +1253,10 @@
 					"$(PROJECT_DIR)/GoogleSdk",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
+					"$(PROJECT_DIR)/OpenEars",
 				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)/../../react-native/React/**",
@@ -1214,7 +1270,10 @@
 				INFOPLIST_FILE = ScoutVoiceApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-webrtc/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

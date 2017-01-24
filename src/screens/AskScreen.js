@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Button,
   Text,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Speech from 'react-native-speech';
-import { startAudioCapture, stopAudioCapture } from '../actions/microphone';
 import { connectSocket } from '../actions/socket';
 
 const BLUE = '#007AFF';
-const WHITE = '#FFFFFF';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,14 +21,18 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     margin: 5,
-    color: WHITE,
+    color: BLUE,
   },
   answer: {
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 50,
-    color: WHITE,
+    color: BLUE,
   },
+});
+
+const DEBUG_WAKEWORD = () => ({
+  type: 'WAKE_WORD_RECEIVED',
 });
 
 
@@ -57,27 +58,28 @@ class AskScreen extends Component {
   }
 
   triggerMic() {
-    if (this.isRecording()) {
-      this.props.stopAudioCapture();
-    } else {
-      this.props.startAudioCapture();
-    }
+    this.props.DEBUG_WAKEWORD();
   }
 
   render() {
     const isSocketConnected = this.props.socket.isConnected;
-    const recordButtonText = this.isRecording() ? 'Stop' : 'Ask';
+    const isAsking = this.props.ask.isAsking;
+
+    let stateDisplay;
+    if (!isSocketConnected) {
+      stateDisplay = (<Text>Connecting</Text>);
+    } else if (isAsking) {
+      stateDisplay = (<Text>Asking...</Text>);
+    } else {
+      stateDisplay = (<Text>Waiting for wake word</Text>);
+    }
+
     const transcript = this.props.ask.transcript;
     const answer = this.props.ask.answer;
 
-    const buttonOrConnecting = isSocketConnected ? (
-      <Button title={recordButtonText} onPress={() => { this.triggerMic(); }} />) : (
-        <Text style={styles.question}>Connecting...</Text>
-      );
-
     return (
       <View>
-        {buttonOrConnecting}
+        {stateDisplay}
         <View style={styles.container}>
           <Text style={styles.question}>{transcript}</Text>
           <Text style={styles.answer}>{answer}</Text>
@@ -89,11 +91,10 @@ class AskScreen extends Component {
 
 AskScreen.propTypes = {
   connectSocket: React.PropTypes.func.isRequired,
-  startAudioCapture: React.PropTypes.func.isRequired,
-  stopAudioCapture: React.PropTypes.func.isRequired,
   microphone: React.PropTypes.object.isRequired,
   socket: React.PropTypes.object.isRequired,
   ask: React.PropTypes.object.isRequired,
+  DEBUG_WAKEWORD: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -104,8 +105,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   connectSocket,
-  startAudioCapture,
-  stopAudioCapture,
+  DEBUG_WAKEWORD,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskScreen);

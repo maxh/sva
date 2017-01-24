@@ -12,10 +12,12 @@ import rootReducer from './reducers';
 import api from './middleware/api';
 import microphone from './middleware/microphone';
 import socket from './middleware/socket';
+import wakeWord from './middleware/wakeWord';
 import microphoneToSocket from './middleware/microphone-to-socket';
 import { registerScreens } from './screens';
 
 import * as types from './actions/types';
+import { initializeWakeWord } from './actions/wakeWord';
 
 const forAuthOnlyPersistDeviceToken = createFilter(
   'auth', ['deviceToken.current'],
@@ -24,7 +26,9 @@ const forAuthOnlyPersistDeviceToken = createFilter(
 export default class App {
 
   static configureStore() {
-    const middlewares = [thunkMiddleware, api, microphone, socket, microphoneToSocket];
+    const middlewares = [
+      thunkMiddleware, api, microphone, socket, microphoneToSocket, wakeWord,
+    ];
 
     if (__DEV__) {
       middlewares.push(createLogger({
@@ -49,6 +53,7 @@ export default class App {
           blacklist: [
             'microphone',
             'socket',
+            'ask',
           ],
           transforms: [forAuthOnlyPersistDeviceToken],
         };
@@ -70,6 +75,8 @@ export default class App {
       this.store.subscribe(this.ensureCorrectRootScreen.bind(this));
       registerScreens(this.store, Provider);
       this.ensureCorrectRootScreen();
+
+      this.store.dispatch(initializeWakeWord('scout'));
     });
   }
 
