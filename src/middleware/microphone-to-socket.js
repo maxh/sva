@@ -12,6 +12,9 @@ const WAITING_FOR_SERVER_READY = 2;
 const SENDING_TO_SERVER = 3;
 let state = INITIALIZING;
 
+const MAX_AUDIO_BUFFER_LENGTH = 10;
+const audioSampleBuffer = [];
+
 export default store => next => (action) => {
   switch (action.type) {
     case types.WAKE_WORD_DETECTOR_READY:
@@ -40,7 +43,9 @@ export default store => next => (action) => {
         throw new Error(`Got a socket ready message but we're in state ${state}`);
       }
       state = SENDING_TO_SERVER;
-      // TODO: flush audio buffer
+      while (audioSampleBuffer.length > 0) {
+        store.dispatch(sendAudioData(audioSampleBuffer.shift()));
+      }
       break;
 
     case types.MICROPHONE_DATA_RECEIVED:
@@ -52,18 +57,13 @@ export default store => next => (action) => {
       if (state === LISTENING_FOR_WAKE_WORD) {
         store.dispatch(sendWakeWordAudio(action.data));
       } else if (state === SENDING_TO_SERVER || state === WAITING_FOR_SERVER_READY) {
-        /*
-          } else if (action.sampleRate !== sentSampleRate) {
-            // sample rate changed mid-recording -- freak out
-            throw `Sample rate changed from ${sentSampleRate} to ` +
-              `${action.sampleRate} mid-recording`;
-          }
-        */
-
         if (state === SENDING_TO_SERVER) {
           store.dispatch(sendAudioData(action.data));
         } else {
-          // TODO: buffer audio
+          if (audioSampleBuffer.length > MAX_AUDIO_BUFFER_LENGTH) {
+            audioSampleBuffer.shift();
+          }
+          audioSampleBuffer.push(action.data);
         }
       }
       break;
@@ -75,10 +75,6 @@ export default store => next => (action) => {
         store.dispatch(sendEndOfSpeech());
       }
       */
-      break;
-
-    case types.RECORDING_STATUS_CHANGED:
-      // Whether recording is turned on or off, it's a new recording
       break;
 
     case types.SOCKET_DISCONNECTED:

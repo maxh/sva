@@ -11,22 +11,14 @@ import { connectSocket } from '../actions/socket';
 const BLUE = '#007AFF';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: BLUE,
-  },
   question: {
-    fontSize: 50,
+    fontSize: 30,
     textAlign: 'center',
-    margin: 5,
     color: BLUE,
   },
   answer: {
     fontSize: 20,
     textAlign: 'center',
-    marginBottom: 50,
     color: BLUE,
   },
 });
@@ -80,10 +72,8 @@ class AskScreen extends Component {
     return (
       <View>
         {stateDisplay}
-        <View style={styles.container}>
-          <Text style={styles.question}>{transcript}</Text>
-          <Text style={styles.answer}>{answer}</Text>
-        </View>
+        <Text style={styles.question}>{transcript}</Text>
+        <Text style={styles.answer}>{answer}</Text>
       </View>
     );
   }

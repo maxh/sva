@@ -1,3 +1,5 @@
+import Speech from 'react-native-speech';
+
 import settings from '../settings';
 import * as types from '../actions/types';
 import { connectSocket } from '../actions/socket';
@@ -29,8 +31,21 @@ const onMessage = store => (event) => {
     case 'SERVER_ANSWER':
       store.dispatch({
         type: types.ANSWER_RECEIVED,
-        text: message.answer,
+        text: message.answerText,
+        lessonId: message.lessonId,
       });
+
+      if (message.answerText) {
+        // TODO: probably move this somewhere else
+        Speech.speak({
+          text: message.answerText,
+          voice: 'en-US',
+        }).catch((error) => {
+          console.log(`Speech error: ${error}`);
+        });
+      } else {
+        console.error(`Got a bad answer: ${message}`);
+      }
       break;
     default:
       throw Error(`Received unknown message type on socket: ${message.type}`);
