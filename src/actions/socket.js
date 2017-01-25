@@ -27,3 +27,10 @@ export const sendEndOfSpeech = () => ({
     type: types.SEND_END_OF_SPEECH,
   },
 });
+
+export const sendDebugTranscript = transcript => ({
+  [USE_SOCKET]: {
+    type: types.SEND_DEBUG_TRANSCRIPT,
+    transcript,
+  },
+});

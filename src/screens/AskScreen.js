@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import Speech from 'react-native-speech';
-import { connectSocket } from '../actions/socket';
+import { connectSocket, sendDebugTranscript } from '../actions/socket';
+import { AskAnimation } from './components/AskAnimation';
 
 const BLUE = '#007AFF';
+const GRAY = 'gray';
 
 const styles = StyleSheet.create({
+  infoContainer: {
+    marginTop: 32,
+  },
   question: {
     fontSize: 30,
     textAlign: 'center',
@@ -21,32 +26,48 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: BLUE,
   },
+  debugTextInput: {
+    height: 40,
+    borderColor: GRAY,
+    borderWidth: 1,
+  },
+  container: {
+    alignItems: 'center',
+    marginTop: 16,
+  },
 });
 
 const DEBUG_WAKEWORD = () => ({
   type: 'WAKE_WORD_RECEIVED',
 });
 
-
 class AskScreen extends Component {
+  constructor() {
+    super();
 
-  static startHandler() {
-    Speech.speak({
-      text: 'Hello there! I am Scout, your voice companion.',
-      voice: 'en-US',
-    })
-    .then(started => `Speech started: ${started}`)
-    .catch(error => `You've already started a speech instance: ${error}`);
+    this.state = {
+      onEnteringText: false,
+      manualText: '',
+    };
   }
 
   componentWillMount() {
     this.props.connectSocket();
   }
 
+  onPressedButton = () => {
+    this.setState({
+      isEnteringText: true,
+      manualText: '',
+    });
+  }
 
-  isRecording() {
-    const mic = this.props.microphone;
-    return mic.isRecording || mic.isRequested;
+  onSubmitManualText = (event) => {
+    this.props.sendDebugTranscript(event.nativeEvent.text);
+    this.setState({
+      isEnteringText: false,
+      manualText: '',
+    });
   }
 
   triggerMic() {
@@ -60,20 +81,32 @@ class AskScreen extends Component {
     let stateDisplay;
     if (!isSocketConnected) {
       stateDisplay = (<Text>Connecting</Text>);
+    } else if (this.state.isEnteringText) {
+      stateDisplay = (<TextInput
+        style={styles.debugTextInput}
+        onChangeText={text => this.setState({ manualText: text })}
+        autoFocus
+        value={this.state.manualText}
+        onSubmitEditing={this.onSubmitManualText}
+      />);
     } else if (isAsking) {
-      stateDisplay = (<Text>Asking...</Text>);
+      stateDisplay = (<AskAnimation isAnimating />);
     } else {
-      stateDisplay = (<Text>Waiting for wake word</Text>);
+      stateDisplay = (
+        <AskAnimation isAnimating={false} onPress={this.onPressedButton} />
+      );
     }
 
     const transcript = this.props.ask.transcript;
     const answer = this.props.ask.answer;
 
     return (
-      <View>
+      <View style={styles.container}>
         {stateDisplay}
-        <Text style={styles.question}>{transcript}</Text>
-        <Text style={styles.answer}>{answer}</Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.question}>{transcript}</Text>
+          <Text style={styles.answer}>{answer}</Text>
+        </View>
       </View>
     );
   }
@@ -81,14 +114,13 @@ class AskScreen extends Component {
 
 AskScreen.propTypes = {
   connectSocket: React.PropTypes.func.isRequired,
-  microphone: React.PropTypes.object.isRequired,
+  sendDebugTranscript: React.PropTypes.func.isRequired,
   socket: React.PropTypes.object.isRequired,
   ask: React.PropTypes.object.isRequired,
   DEBUG_WAKEWORD: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  microphone: state.microphone,
   ask: state.ask,
   socket: state.socket,
 });
@@ -96,6 +128,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   connectSocket,
   DEBUG_WAKEWORD,
+  sendDebugTranscript,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskScreen);

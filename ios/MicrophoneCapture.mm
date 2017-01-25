@@ -11,6 +11,7 @@
 #import <AudioUnit/AudioUnit.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+const int SAMPLE_RATE = 16000;
 
 @interface MicrophoneCapture ()
 - (void)changeRecordStatus:(bool)status;
@@ -72,6 +73,7 @@ static OSStatus audioCallback(void *inRefCon,
   if (*ioActionFlags != kAudioUnitRenderAction_PostRender || inBusNumber != kInputBus) {
     return noErr;
   }
+  
   //Get a reference to self
   MicrophoneCapture *parent = (__bridge MicrophoneCapture *)inRefCon;
   if (parent) {
@@ -92,13 +94,12 @@ static OSStatus audioCallback(void *inRefCon,
       
       SInt16 *samples = (SInt16 *)ioData->mBuffers[bufferCount].mData;
       for (int i=0; i < ioData->mBuffers[bufferCount].mDataByteSize / sizeof(SInt16); i++) {
-        // TODO: this is maybe dependent on the native endianness?
         SInt16 sample = samples[i];
         [output addObject:[NSNumber numberWithInteger:sample]];
       }
     }
     
-    [parent sendEventWithName:@"micData" body:@{@"sampleRate":[NSNumber numberWithInteger:16000], @"data": output}];
+    [parent sendEventWithName:@"micData" body:@{@"sampleRate":[NSNumber numberWithInteger:SAMPLE_RATE], @"data": output}];
   }
   
   // mute the audio by setting it to zero;
@@ -112,9 +113,9 @@ const int kInputBus = 1, kOutputBus = 0;
 
 AudioStreamBasicDescription makeConvertedASBD() {
   AudioStreamBasicDescription asbd = {0};
-  asbd.mSampleRate        = 16000.0;
+  asbd.mSampleRate        = SAMPLE_RATE;
   asbd.mFormatID          = kAudioFormatLinearPCM;
-  asbd.mFormatFlags       = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+  asbd.mFormatFlags       = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked | kAudioFormatFlagsNativeEndian;
   asbd.mFramesPerPacket   = 1;
   asbd.mChannelsPerFrame  = 1;
   asbd.mBitsPerChannel    = 16;
@@ -179,7 +180,7 @@ void makeConverter(AUGraph *graph, AUNode *converterNode, AudioUnit *converterUn
   
   // describe desired output format
   AudioStreamBasicDescription convertedFormat;
-  convertedFormat.mSampleRate			= 16000.0;
+  convertedFormat.mSampleRate			= SAMPLE_RATE;
   convertedFormat.mFormatID			= kAudioFormatLinearPCM;
   convertedFormat.mFormatFlags		= kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
   convertedFormat.mFramesPerPacket	= 1;
@@ -233,7 +234,9 @@ void makeConverter(AUGraph *graph, AUNode *converterNode, AudioUnit *converterUn
 }
 
 - (void)dealloc {
-  if (isInitialized) {
+  if (isInitialized) {    
+    AudioUnitRemoveRenderNotify(ioUnit, audioCallback, (__bridge void *)self);
+    
     CheckError(AUGraphStop(audioGraph), @"AUGraphStop");
     
     NSError *err = nil;

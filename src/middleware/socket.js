@@ -150,6 +150,13 @@ const sendEndOfSpeech = (store) => {
   });
 };
 
+const sendDebugTranscript = (store, transcript) => {
+  sendJSONOverSocket(store, {
+    type: 'CLIENT_TRANSCRIPT',
+    transcript,
+  });
+};
+
 export const USE_SOCKET = Symbol('Use Socket');
 
 export default store => next => (action) => {
@@ -179,6 +186,10 @@ export default store => next => (action) => {
 
     case types.SEND_END_OF_SPEECH:
       sendEndOfSpeech(store);
+      break;
+
+    case types.SEND_DEBUG_TRANSCRIPT:
+      sendDebugTranscript(store, useSocket.transcript);
       break;
 
     default:
