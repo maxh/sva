@@ -4,6 +4,10 @@
 # IP config
 src/settings-local-ip.js
 
+# bundle
+*.jsbundle
+*.jsbundle.meta
+
 # OSX
 #
 .DS_Store

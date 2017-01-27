@@ -58,7 +58,9 @@ const reconnectAfterDelay = (store) => {
     throw Error('Asked to reconnect, but already connected');
   }
 
-  const delay = 1000 * (1.6 ** Math.min(socketState.numRetries, 4)) * (Math.random() + 0.5);
+  const delay = (1000 * Math.pow( // eslint-disable-line no-restricted-properties
+    1.6, Math.min(socketState.numRetries, 4)) * (Math.random() + 0.5)
+  );
 
   store.dispatch({ type: types.SOCKET_CONNECTING });
   setTimeout(() => store.dispatch(connectSocket()), delay);

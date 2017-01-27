@@ -24,6 +24,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		21379D5E1E3BEC8C00E80D56 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		21BB65271E2D95B70095811E /* MicrophoneCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21BB65261E2D95B70095811E /* MicrophoneCapture.mm */; };
 		21C95EA21E31487C00278902 /* WakeWordDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21C95EA11E31487C00278902 /* WakeWordDetector.mm */; };
 		21C95EBC1E3166EE00278902 /* libsnowboy-detect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */; };
@@ -493,7 +494,6 @@
 			isa = PBXGroup;
 			children = (
 				21C95EBD1E316A7A00278902 /* snowboy-detect.hpp */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				21C95EBB1E3166EE00278902 /* libsnowboy-detect.a */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -674,6 +674,7 @@
 		C53CFB3D56AE4028A7075C9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				21C95EBE1E31783400278902 /* common.res */,
 				21C95EBF1E31783400278902 /* hotword.pmdl */,
 				D555B712F34D4C029F01E8D5 /* Entypo.ttf */,
@@ -1030,6 +1031,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21379D5E1E3BEC8C00E80D56 /* main.jsbundle in Resources */,
 				21C95EC01E31786B00278902 /* common.res in Resources */,
 				21C95EC11E31786B00278902 /* hotword.pmdl in Resources */,
 				50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */,
