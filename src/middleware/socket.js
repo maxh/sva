@@ -31,20 +31,17 @@ const onMessage = store => (event) => {
     case 'SERVER_ANSWER':
       store.dispatch({
         type: types.ANSWER_RECEIVED,
-        text: message.answerText,
-        lessonId: message.lessonId,
+        answer: message,
       });
 
-      if (message.answerText) {
+      if (message.speech) {
         // TODO: probably move this somewhere else
         Speech.speak({
-          text: message.answerText,
+          text: message.speech,
           voice: 'en-US',
         }).catch((error) => {
           console.log(`Speech error: ${error}`);
         });
-      } else {
-        console.error(`Got a bad answer: ${message}`);
       }
       break;
     default:

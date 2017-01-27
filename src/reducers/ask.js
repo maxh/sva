@@ -20,7 +20,7 @@ function ask(state = { transcript: '', answer: '', isAsking: false }, action) {
     case types.ANSWER_RECEIVED:
       return {
         ...state,
-        answer: action.text,
+        answer: action.answer,
       };
     default:
       return state;

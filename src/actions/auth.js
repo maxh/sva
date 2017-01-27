@@ -60,7 +60,7 @@ const ensureGoogleUser = () => (dispatch, getState) => {
 const fetchDeviceToken = () => (dispatch, getState) => {
   const googleUser = getState().auth.googleUser.current;
   if (!googleUser) {
-    throw Error('There must be googleUser to get a device token.');
+    return Promise.reject();
   }
 
   dispatch({ type: types.DEVICE_TOKEN_REQUEST });
@@ -103,11 +103,15 @@ const ensureDeviceToken = () => (dispatch, getState) => {
 
 const forceFullSignInFlow = () => (dispatch, getState) => {
   GoogleSignin.signOut();
-  return dispatch(fetchGoogleUser()).then(() => dispatch(fetchDeviceToken()));
+  return (dispatch(fetchGoogleUser())
+      .then(() => dispatch(fetchDeviceToken()))
+      .catch(console.error.bind(console)));
 };
 
 const signIn = () => (dispatch, getState) => {
-  return dispatch(ensureGoogleUser()).then(() => dispatch(ensureDeviceToken()));
+  return (dispatch(ensureGoogleUser())
+      .then(() => dispatch(ensureDeviceToken()))
+      .catch(console.error.bind(console)));
 };
 
 export {

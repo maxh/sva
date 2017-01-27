@@ -4,10 +4,12 @@ import {
   Text,
   TextInput,
   View,
+  WebView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { connectSocket, sendDebugTranscript } from '../actions/socket';
-import { AskAnimation } from './components/AskAnimation';
+import AskAnimation from './components/AskAnimation';
+
 
 const BLUE = '#007AFF';
 const GRAY = 'gray';
@@ -35,6 +37,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
   },
+  webview: {
+    marginTop: 20,
+    height: 100,
+  },
 });
 
 const DEBUG_WAKEWORD = () => ({
@@ -44,10 +50,12 @@ const DEBUG_WAKEWORD = () => ({
 class AskScreen extends Component {
   constructor() {
     super();
-
+    this.onPressedButton = this.onPressedButton.bind(this);
+    this.onSubmitManualText = this.onSubmitManualText.bind(this);
     this.state = {
       onEnteringText: false,
       manualText: '',
+      fetchedHtml: '',
     };
   }
 
@@ -55,14 +63,23 @@ class AskScreen extends Component {
     this.props.connectSocket();
   }
 
-  onPressedButton = () => {
+  componentWillReceiveProps(nextProps) {
+    const { htmlRequest } = nextProps.ask.answer;
+    if (!htmlRequest) {
+      this.setState({ fetchedHtml: '' });
+    } else if (htmlRequest !== this.props.ask.answer.htmlRequest) {
+      this.fetchHtml(htmlRequest);
+    }
+  }
+
+  onPressedButton() {
     this.setState({
       isEnteringText: true,
       manualText: '',
     });
   }
 
-  onSubmitManualText = (event) => {
+  onSubmitManualText(event) {
     this.props.sendDebugTranscript(event.nativeEvent.text);
     this.setState({
       isEnteringText: false,
@@ -72,6 +89,17 @@ class AskScreen extends Component {
 
   triggerMic() {
     this.props.DEBUG_WAKEWORD();
+  }
+
+  fetchHtml(request) {
+    fetch(request.url, request.options).then((response) => {
+      response.text().then((html) => {
+        if (this.props.ask.answer.htmlRequest !== request) {
+          return;  // The html request answer is no longer relevant.
+        }
+        this.setState({ fetchedHtml: html });
+      });
+    });
   }
 
   render() {
@@ -98,14 +126,34 @@ class AskScreen extends Component {
     }
 
     const transcript = this.props.ask.transcript;
-    const answer = this.props.ask.answer;
+    const { link, display, htmlRequest } = this.props.ask.answer;
+
+    let source;  // For webview.
+    let text;    // For normal text display.
+    if (link) {
+      source = { uri: link };
+    } else if (this.state.fetchedHtml) {
+      source = { html: this.state.fetchedHtml };
+    } else if (display) {
+      text = display;
+    } else if (htmlRequest) {
+      text = 'Loading...';
+    }
 
     return (
       <View style={styles.container}>
         {stateDisplay}
         <View style={styles.infoContainer}>
           <Text style={styles.question}>{transcript}</Text>
-          <Text style={styles.answer}>{answer}</Text>
+          { source &&
+            <WebView
+              source={source}
+              style={styles.webview}
+            />
+          }
+          { text &&
+            <Text style={styles.answer}>{text}</Text>
+          }
         </View>
       </View>
     );
