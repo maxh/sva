@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   },
   webview: {
     marginTop: 20,
-    height: 100,
+    height: 400,
+    width: 800,
   },
 });
 
@@ -144,7 +145,7 @@ class AskScreen extends Component {
       <View style={styles.container}>
         {stateDisplay}
         <View style={styles.infoContainer}>
-          <Text style={styles.question}>{transcript}</Text>
+          <Text style={styles.question}>{transcript || 'Say "Scout" to wake me up!'}</Text>
           { source &&
             <WebView
               source={source}

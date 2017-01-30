@@ -101,25 +101,12 @@ export default class App {
         });
         return;
       case 'after-sign-in':
-        Navigation.startTabBasedApp({
-          tabs: [
-            {
-              label: 'Ask',
-              screen: 'AskScreen',
-              title: 'Ask',
-            },
-            {
-              label: 'Lessons',
-              screen: 'LessonsScreen',
-              title: 'Lessons',
-            },
-          ],
-          animationType: 'slide-down',
-          title: 'Scout',
-          appStyle: {
-            bottomTabBadgeTextColor: '#ffffff',
-            bottomTabBadgeBackgroundColor: '#ff0000',
+        Navigation.startSingleScreenApp({
+          screen: {
+            screen: 'AskScreen',
+            navigatorStyle: {},
           },
+          passProps: {},
         });
         return;
       default:

@@ -7,6 +7,8 @@ src/settings-local-ip.js
 # OSX
 #
 .DS_Store
+ios/main.jsbundle
+ios/main.jsbundle.meta
 
 # Xcode
 #
