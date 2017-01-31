@@ -23,7 +23,6 @@
     "react-native-navigation": "next",
     "react-native-speech": "0.1.2",
     "react-native-vector-icons": "3.0.0",
-    "react-native-webrtc": "0.54.6",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",

@@ -31,9 +31,7 @@
 		21C95EC01E31786B00278902 /* common.res in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBE1E31783400278902 /* common.res */; };
 		21C95EC11E31786B00278902 /* hotword.pmdl in Resources */ = {isa = PBXBuildFile; fileRef = 21C95EBF1E31783400278902 /* hotword.pmdl */; };
 		3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D555B712F34D4C029F01E8D5 /* Entypo.ttf */; };
-		4900607E0F7440019B573622 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 623A8826413145C680B82059 /* libRCTWebRTC.a */; };
 		4AB50B2A00FE45D7990EF7A7 /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD06A3EF9118482BA8B7852D /* libRNAudio.a */; };
-		500A95901E282F7D006588A4 /* GoogleSdk in Resources */ = {isa = PBXBuildFile; fileRef = 500A958F1E282F7D006588A4 /* GoogleSdk */; };
 		500A95911E282F7D006588A4 /* GoogleSdk in Resources */ = {isa = PBXBuildFile; fileRef = 500A958F1E282F7D006588A4 /* GoogleSdk */; };
 		500A95931E282FB2006588A4 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A95921E282FB2006588A4 /* GoogleAppUtilities.framework */; };
 		500A95951E282FB6006588A4 /* GoogleAuthUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A95941E282FB6006588A4 /* GoogleAuthUtilities.framework */; };
@@ -43,11 +41,8 @@
 		500A959D1E282FC7006588A4 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A959C1E282FC7006588A4 /* GoogleUtilities.framework */; };
 		50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A958E1E282DAD006588A4 /* libRNGoogleSignin.a */; };
 		508BC5431E2D652E0050F2B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BC5421E2D652E0050F2B5 /* GoogleService-Info.plist */; };
-		50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 50AA70D11E284399003EA34C /* GoogleSignIn.bundle */; };
 		50C678E71E29B44200BA157D /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; };
-		50C678E81E29B49B00BA157D /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; };
 		50C678E91E29B49B00BA157D /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		50C678EB1E29B4D900BA157D /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E51E29B3DE00BA157D /* libRCTWebRTC.a */; };
 		50C678ED1E29B4F000BA157D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678EC1E29B4F000BA157D /* AVFoundation.framework */; };
 		50C678EF1E29B4F700BA157D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678EE1E29B4F700BA157D /* AudioToolbox.framework */; };
 		50C678F11E29B4FF00BA157D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678F01E29B4FF00BA157D /* CoreGraphics.framework */; };
@@ -217,13 +212,6 @@
 			remoteGlobalIDString = 42F559BA1CFC90C400DC3F84;
 			remoteInfo = RNAudio;
 		};
-		50C678E41E29B3DE00BA157D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 124C6BE7ED644D9BB0660334 /* RCTWebRTC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 35A2221F1CB493700015FD5C;
-			remoteInfo = RCTWebRTC;
-		};
 		50CC60991E28AD02007589DA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AAF588D3429B42DEB30AC351 /* ReactNativeNavigation.xcodeproj */;
@@ -285,7 +273,6 @@
 		00E356EE1AD99517003FC87E /* ScoutVoiceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoutVoiceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ScoutVoiceAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoutVoiceAppTests.m; sourceTree = "<group>"; };
-		124C6BE7ED644D9BB0660334 /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWebRTC.xcodeproj; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ScoutVoiceApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoutVoiceApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,7 +304,7 @@
 		500A959C1E282FC7006588A4 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = GoogleSdk/GoogleUtilities.framework; sourceTree = "<group>"; };
 		508BC5421E2D652E0050F2B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50AA70D11E284399003EA34C /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = GoogleSdk/GoogleSignIn.bundle; sourceTree = "<group>"; };
-		50C678E61E29B44200BA157D /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
+		50C678E61E29B44200BA157D /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = /Users/max/loftboxlabs/ScoutVoiceApp/ios/WebRTC.framework; sourceTree = "<absolute>"; };
 		50C678EC1E29B4F000BA157D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		50C678EE1E29B4F700BA157D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		50C678F01E29B4FF00BA157D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -329,7 +316,6 @@
 		50C678FC1E29B52400BA157D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		50C678FE1E29B52A00BA157D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		623A8826413145C680B82059 /* libRCTWebRTC.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWebRTC.a; sourceTree = "<group>"; };
 		64C5983687474CA79D8640FD /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		73DD92AF245E4169839F974E /* AddressBook.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		759D2E5AE602492A84697587 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
@@ -389,7 +375,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				50CC60C11E28B27F007589DA /* libReactNativeNavigation.a in Frameworks */,
-				50C678EB1E29B4D900BA157D /* libRCTWebRTC.a in Frameworks */,
 				50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */,
 				500A95931E282FB2006588A4 /* GoogleAppUtilities.framework in Frameworks */,
 				500A95951E282FB6006588A4 /* GoogleAuthUtilities.framework in Frameworks */,
@@ -400,13 +385,11 @@
 				9CB9DBD2557C4DCEA5E0D080 /* libz.tbd in Frameworks */,
 				D5C794840E634C89B031DEB3 /* SafariServices.framework in Frameworks */,
 				73A83AEED9164BFE887D1A2D /* SystemConfiguration.framework in Frameworks */,
-				50C678E81E29B49B00BA157D /* WebRTC.framework in Frameworks */,
 				9ACB51D4BE0F4D2AAA5637FF /* AddressBook.framework in Frameworks */,
 				BC6BE6C563AA4B678BB40974 /* libRNVectorIcons.a in Frameworks */,
 				0DF629D93BEA4AD999DAF76F /* libReactNativeNavigation.a in Frameworks */,
 				99108FAA54D24739B08BE524 /* libSpeechSynthesizer.a in Frameworks */,
 				4AB50B2A00FE45D7990EF7A7 /* libRNAudio.a in Frameworks */,
-				4900607E0F7440019B573622 /* libRCTWebRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,14 +534,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		50C678E11E29B3DE00BA157D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				50C678E51E29B3DE00BA157D /* libRCTWebRTC.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		50CC60831E28AD02007589DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,7 +555,6 @@
 				50C678F01E29B4FF00BA157D /* CoreGraphics.framework */,
 				50C678EE1E29B4F700BA157D /* AudioToolbox.framework */,
 				50C678EC1E29B4F000BA157D /* AVFoundation.framework */,
-				50C678E61E29B44200BA157D /* WebRTC.framework */,
 				50AA70D11E284399003EA34C /* GoogleSignIn.bundle */,
 				500A959C1E282FC7006588A4 /* GoogleUtilities.framework */,
 				500A959A1E282FC3006588A4 /* GoogleSymbolUtilities.framework */,
@@ -633,7 +607,6 @@
 				AAF588D3429B42DEB30AC351 /* ReactNativeNavigation.xcodeproj */,
 				AE8C903B87034F858172C9EA /* SpeechSynthesizer.xcodeproj */,
 				B94EAD4AAE584B2291254A61 /* RNAudio.xcodeproj */,
-				124C6BE7ED644D9BB0660334 /* RCTWebRTC.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -746,7 +719,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = WAKX8Q756W;
+						DevelopmentTeam = 8DVQV4QJ9W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -798,10 +771,6 @@
 				{
 					ProductGroup = 00C302E01ABCB9EE00DB3ED1 /* Products */;
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
-				},
-				{
-					ProductGroup = 50C678E11E29B3DE00BA157D /* Products */;
-					ProjectRef = 124C6BE7ED644D9BB0660334 /* RCTWebRTC.xcodeproj */;
 				},
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
@@ -974,13 +943,6 @@
 			remoteRef = 50C678DC1E29B3DE00BA157D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		50C678E51E29B3DE00BA157D /* libRCTWebRTC.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTWebRTC.a;
-			remoteRef = 50C678E41E29B3DE00BA157D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		50CC609A1E28AD02007589DA /* libReactNativeNavigation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1034,8 +996,6 @@
 				21379D5E1E3BEC8C00E80D56 /* main.jsbundle in Resources */,
 				21C95EC01E31786B00278902 /* common.res in Resources */,
 				21C95EC11E31786B00278902 /* hotword.pmdl in Resources */,
-				50AA70D21E284399003EA34C /* GoogleSignIn.bundle in Resources */,
-				500A95901E282F7D006588A4 /* GoogleSdk in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3D8D88A9F5F84C6F9E5D6148 /* Entypo.ttf in Resources */,
@@ -1178,7 +1138,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = WAKX8Q756W;
+				DEVELOPMENT_TEAM = 8DVQV4QJ9W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1227,7 +1187,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = WAKX8Q756W;
+				DEVELOPMENT_TEAM = 8DVQV4QJ9W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
