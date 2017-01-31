@@ -42,7 +42,6 @@
 		50687B6F1E2D3A420063A3C1 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 500A958E1E282DAD006588A4 /* libRNGoogleSignin.a */; };
 		508BC5431E2D652E0050F2B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BC5421E2D652E0050F2B5 /* GoogleService-Info.plist */; };
 		50C678E71E29B44200BA157D /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; };
-		50C678E91E29B49B00BA157D /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678E61E29B44200BA157D /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50C678ED1E29B4F000BA157D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678EC1E29B4F000BA157D /* AVFoundation.framework */; };
 		50C678EF1E29B4F700BA157D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678EE1E29B4F700BA157D /* AudioToolbox.framework */; };
 		50C678F11E29B4FF00BA157D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C678F01E29B4FF00BA157D /* CoreGraphics.framework */; };
@@ -256,7 +255,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				50C678E91E29B49B00BA157D /* WebRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
