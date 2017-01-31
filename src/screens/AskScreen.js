@@ -176,7 +176,7 @@ class AskScreen extends Component {
     let spinnerOrNull = null;
     let webViewContainerStyle = styles.webview;
     if (this.state.isWebViewLoading) {
-      spinnerOrNull = this.renderWebViewLoading();
+      spinnerOrNull = AskScreen.renderWebViewLoading();
       webViewContainerStyle = { height: 0, opacity: 0 };
     }
 
