@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TextInput,
@@ -42,6 +43,15 @@ const styles = StyleSheet.create({
     height: 400,
     width: 800,
   },
+
+  loadingContainer: {
+    alignItems: 'center',
+    marginTop: 48,
+  },
+  loadingText: {
+    fontSize: 14,
+    marginTop: 8,
+  },
 });
 
 const DEBUG_WAKEWORD = () => ({
@@ -49,6 +59,15 @@ const DEBUG_WAKEWORD = () => ({
 });
 
 class AskScreen extends Component {
+  static renderWebViewLoading() {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" />
+        <Text style={styles.loadingText}>Fetching results...</Text>
+      </View>
+    );
+  }
+
   constructor() {
     super();
     this.onPressedButton = this.onPressedButton.bind(this);
@@ -57,6 +76,7 @@ class AskScreen extends Component {
       onEnteringText: false,
       manualText: '',
       fetchedHtml: '',
+      isWebViewLoading: false,
     };
   }
 
@@ -85,6 +105,18 @@ class AskScreen extends Component {
     this.setState({
       isEnteringText: false,
       manualText: '',
+    });
+  }
+
+  onWebViewLoadStart = () => {
+    this.setState({
+      isWebViewLoading: true,
+    });
+  }
+
+  onWebViewLoadEnd = () => {
+    this.setState({
+      isWebViewLoading: false,
     });
   }
 
@@ -141,6 +173,13 @@ class AskScreen extends Component {
       text = 'Loading...';
     }
 
+    let spinnerOrNull = null;
+    let webViewContainerStyle = styles.webview;
+    if (this.state.isWebViewLoading) {
+      spinnerOrNull = AskScreen.renderWebViewLoading();
+      webViewContainerStyle = { height: 0, opacity: 0 };
+    }
+
     return (
       <View style={styles.container}>
         {stateDisplay}
@@ -149,9 +188,13 @@ class AskScreen extends Component {
           { source &&
             <WebView
               source={source}
-              style={styles.webview}
+              style={webViewContainerStyle}
+              onLoadStart={this.onWebViewLoadStart}
+              onLoadEnd={this.onWebViewLoadEnd}
+              startInLoadingState
             />
           }
+          { spinnerOrNull }
           { text &&
             <Text style={styles.answer}>{text}</Text>
           }
