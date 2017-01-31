@@ -126,7 +126,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-webrtc')
     compile project(':react-native-audio')
     compile project(':react-native-navigation')
     compile project(':react-native-vector-icons')
