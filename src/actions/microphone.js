@@ -8,22 +8,6 @@ const startAudioCapture = () => ({
   },
 });
 
-const stopAudioCapture = () => ({
-  [USE_MICROPHONE]: {
-    type: types.USER_REQUEST_RECORDING,
-    shouldRecord: false,
-  },
-});
-
-const serverTerminatedCapture = reason => ({
-  [USE_MICROPHONE]: {
-    type: types.SERVER_TERMINATED_CAPTURE,
-    reason,
-  },
-});
-
 export {
   startAudioCapture,
-  stopAudioCapture,
-  serverTerminatedCapture,
 };

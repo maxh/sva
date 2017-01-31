@@ -18,10 +18,16 @@ const onMessage = store => (event) => {
       });
       break;
     case 'SERVER_TRANSCRIPT':
-      store.dispatch({
-        type: types.TRANSCRIPT_RECEIVED,
-        text: message.transcript,
-      });
+      if (message.timeout) {
+        store.dispatch({
+          type: types.SPEECH_REQUEST_TIMED_OUT,
+        });
+      } else {
+        store.dispatch({
+          type: types.TRANSCRIPT_RECEIVED,
+          text: message.transcript,
+        });
+      }
       break;
     case 'SERVER_SPEECH_ENDED':
       store.dispatch({

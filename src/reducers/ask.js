@@ -1,6 +1,6 @@
 import * as types from '../actions/types';
 
-function ask(state = { transcript: '', answer: '', isAsking: false }, action) {
+function ask(state = { transcript: '', answer: {}, isAsking: false }, action) {
   switch (action.type) {
     case types.WAKE_WORD_RECEIVED:
       return {
@@ -8,6 +8,12 @@ function ask(state = { transcript: '', answer: '', isAsking: false }, action) {
         isAsking: true,
       };
     case types.SPEECH_ENDED_BY_SERVER:
+      return {
+        ...state,
+        isAsking: false,
+      };
+    case types.SOCKET_DISCONNECTED:
+    case types.SOCKET_CONNECTED:
       return {
         ...state,
         isAsking: false,

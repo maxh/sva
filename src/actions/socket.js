@@ -8,6 +8,12 @@ export const connectSocket = () => ({
   },
 });
 
+export const disconnectSocket = () => ({
+  [USE_SOCKET]: {
+    type: types.DISCONNECT_SOCKET,
+  },
+});
+
 export const sendAudioData = data => ({
   [USE_SOCKET]: {
     type: types.SEND_AUDIO_DATA,

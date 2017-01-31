@@ -2,9 +2,7 @@ import LocalIP from './settings-local-ip';
 
 const settings = {};
 
-const FORCE_PROD_SERVICE = true;
-
-if (!FORCE_PROD_SERVICE && __DEV__) {
+if (__DEV__) {
   settings.port = 5000;
   settings.urls = {
     mainServer: `http://${LocalIP.ip}:${settings.port}`,

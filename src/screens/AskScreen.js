@@ -67,7 +67,7 @@ class AskScreen extends Component {
   componentWillReceiveProps(nextProps) {
     const { htmlRequest } = nextProps.ask.answer;
     if (!htmlRequest) {
-      this.setState({ fetchedHtml: '' });
+      this.setState({ fetchedHtml: null });
     } else if (htmlRequest !== this.props.ask.answer.htmlRequest) {
       this.fetchHtml(htmlRequest);
     }
@@ -129,9 +129,9 @@ class AskScreen extends Component {
     const transcript = this.props.ask.transcript;
     const { link, display, htmlRequest } = this.props.ask.answer;
 
-    let source;  // For webview.
+    let source = null;  // For webview.
     let text;    // For normal text display.
-    if (link) {
+    if (link && link !== '') {
       source = { uri: link };
     } else if (this.state.fetchedHtml) {
       source = { html: this.state.fetchedHtml };

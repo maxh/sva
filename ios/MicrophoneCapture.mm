@@ -87,8 +87,8 @@ static OSStatus audioCallback(void *inRefCon,
     
     for (int bufferCount=0; bufferCount < ioData->mNumberBuffers; bufferCount++) {
       if (ioData->mBuffers[bufferCount].mNumberChannels != 1) {
-        NSLog(@"Bad number of channels in audio data: %i", ioData->mBuffers[bufferCount].mNumberChannels);
-        [parent error:@"Bad number of channels"];
+        NSLog(@"Bad number of channels in audio data: %ui", ioData->mBuffers[bufferCount].mNumberChannels);
+        //[parent error:@"Bad number of channels"];
         exit(1);
       }
       
@@ -165,6 +165,7 @@ void makeSpeaker(AUGraph *graph, AUNode ioNode, AudioUnit ioUnit) {
   AudioUnitSetProperty(ioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &asbd, sizeof(asbd));
 }
 
+/*
 void makeConverter(AUGraph *graph, AUNode *converterNode, AudioUnit *converterUnit, AudioStreamBasicDescription inFormat) {
   AudioComponentDescription sampleConverterDesc;
   sampleConverterDesc.componentType = kAudioUnitType_FormatConverter;
@@ -205,6 +206,7 @@ void makeConverter(AUGraph *graph, AUNode *converterNode, AudioUnit *converterUn
                                   sizeof(convertedFormat)),
              @"Setting format of converter output");
 }
+ */
 
 - (void)initialize {
   // https://lists.apple.com/archives/coreaudio-api/2009/Apr/msg00015.html
@@ -233,16 +235,20 @@ void makeConverter(AUGraph *graph, AUNode *converterNode, AudioUnit *converterUn
   CAShow(audioGraph);
 }
 
-- (void)dealloc {
-  if (isInitialized) {    
-    AudioUnitRemoveRenderNotify(ioUnit, audioCallback, (__bridge void *)self);
-    
-    CheckError(AUGraphStop(audioGraph), @"AUGraphStop");
+- (void)cleanup {
+  if (isInitialized) {
+    //CheckError(AUGraphClearConnections(audioGraph), @"AUGraphClearConnections");
+    CheckError(AUGraphClose(audioGraph), @"AUGraphClose");
     
     NSError *err = nil;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:&err];
+    isInitialized = false;
   }
+}
+
+- (void)dealloc {
+  [self cleanup];
 }
 
 RCT_EXPORT_METHOD(startCapture)
